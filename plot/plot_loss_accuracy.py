@@ -22,12 +22,12 @@ def plot_model_img(train_y, test_y, loss):
 
 
 # 画生成对抗网络的损失曲线
-def plot_gan_img(d_loss, g_loss, glo_loss):
+def plot_gan_img(d_loss, g_loss, glo_loss, path="./"):
     x = np.arange(len(d_loss))
     """ Plot image """
     plt.figure()
     plt.subplot(3, 1, 1)
-    plt.title("Discriminator and Generator  loss")
+    plt.title("Discriminator and Generator loss")
     plt.plot(x, d_loss, 'r-', label='d_loss')
     plt.plot(x, g_loss, 'b-', label='g_loss')
     plt.legend(loc='upper left')
@@ -36,4 +36,4 @@ def plot_gan_img(d_loss, g_loss, glo_loss):
     plt.title("glo_loss")
     plt.plot(x, glo_loss, 'g-', label='glo_loss')
     plt.legend(loc='upper left')
-    plt.show()
+    plt.savefig(path + "/Loss.png")
