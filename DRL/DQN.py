@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import random
-from Agent.Agent import Agent
+from Agent.DQN_Agent import Agent
 
 # 探索率初始
 EPSILON_START = 1.0
@@ -33,7 +33,7 @@ def train():
 
     """Generate agents"""
 
-    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='train', model_path="./Result/Model")
+    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='train', model_path="../Result/Model")
 
     """Main Training Loop"""
 
@@ -141,7 +141,7 @@ def test():
     n_state = len(s)
     n_action = env.action_space.n
 
-    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='test', model_path="./Result/Model")
+    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='test', model_path="../Result/Model")
 
     reward_all = 0
 
