@@ -26,7 +26,7 @@ generator_more_epoch = 2
 # 数据
 # 加载需要生成的数据集
 # 加载数据
-path = r'./Data'
+path = r'../Data'
 dataset = MyDataset(path, transform=transforms)
 dataloader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, drop_last=True)
 
@@ -145,7 +145,7 @@ for epoch in range(total_epochs):
                                                                                       gloLoss))
 
 # 画图
-plot_gan_img(discriminator_loss, generator_loss, global_loss, "./Result")
+plot_gan_img(discriminator_loss, generator_loss, global_loss, "../Result")
 
 # 保存生成器与判别器模型
 torch.save(generator.state_dict(), './Result/Model/generator.pth')
