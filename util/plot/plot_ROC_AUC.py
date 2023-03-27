@@ -8,7 +8,7 @@ from sklearn.preprocessing import label_binarize
 def ROC_AUC(test, output_prob, classes):
     """
     ROC AUC
-    :param test:    测试集标签
+    :param test:    测试集
     :param output_prob:     模型输出的概率
     :param classes:     类别
     :return:
