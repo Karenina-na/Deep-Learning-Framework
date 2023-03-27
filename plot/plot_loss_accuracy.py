@@ -36,4 +36,4 @@ def plot_gan_img(d_loss, g_loss, glo_loss, path="./"):
     plt.title("glo_loss")
     plt.plot(x, glo_loss, 'g-', label='glo_loss')
     plt.legend(loc='upper left')
-    plt.savefig(path + "/Loss.png")
+    plt.show()
