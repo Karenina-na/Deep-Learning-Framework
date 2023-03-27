@@ -1,5 +1,8 @@
+from .TP_TN_FP_FN import TP_TN_FP_FN
+
+
 # 利用混淆矩阵F1值
-def f1(confusion_matrix):
+def f1_score(confusion_matrix):
     """
     - confusion_matrix : 混淆矩阵
     """
