@@ -1,3 +1,6 @@
+from .TP_TN_FP_FN import TP_TN_FP_FN
+
+
 # 利用混淆矩阵准确率
 def accuracy(confusion_matrix):
     """
