@@ -1,5 +1,5 @@
 # Deep-Learning-Framework
-Deep-Learning-Framework是一个深度学习项目架构，为本人自用。项目依赖Python3.7+和Pytorch。
+Deep-Learning-Framework是一个深度学习项目架构，为本人自用。项目依赖Python3.9+和Pytorch。
 ## 特点
 
 - 提供了数据预处理、模型构建、训练和评估等工具和函数。
