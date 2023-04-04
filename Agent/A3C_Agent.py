@@ -7,7 +7,7 @@ import numpy as np
 from multiprocessing import Process, Queue
 
 
-def set_init(layers):
+def set_init(layers: list):
     for layer in layers:
         nn.init.normal_(layer.weight, mean=0., std=0.1)
         nn.init.constant_(layer.bias, 0.)
@@ -31,7 +31,7 @@ class SharedAdam(torch.optim.Adam):
 
 
 class Agent(nn.Module):
-    def __init__(self, s_dim, a_dim, GAMMA):
+    def __init__(self, s_dim: int, a_dim: int, GAMMA: float = 0.9):
         super(Agent, self).__init__()
         self.s_dim = s_dim
         self.a_dim = a_dim
@@ -43,7 +43,7 @@ class Agent(nn.Module):
         set_init([self.pi1, self.pi2, self.v1, self.v2])
         self.distribution = torch.distributions.Categorical
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor):
         """
         前向传播
         :param x:   状态 [batch_size, state_dim]
@@ -55,19 +55,19 @@ class Agent(nn.Module):
         values = self.v2(v1)
         return logits, values
 
-    def choose_action(self, s):
+    def choose_action(self, state: torch.Tensor):
         """
         根据状态选择动作
-        :param s:   状态 [state_dim]
+        :param state:   状态 [state_dim]
         :return:    动作 [action_dim]
         """
         self.eval()
-        logits, _ = self.forward(s)
+        logits, _ = self.forward(state)
         prob = F.softmax(logits, dim=1).data
         m = self.distribution(prob)
         return m.sample().numpy()[0]
 
-    def loss_func(self, state, actions, rewards):
+    def loss_func(self, state: torch.Tensor, actions: torch.Tensor, rewards: torch.Tensor):
         """
         计算损失函数
         :param state:   状态 [batch_size, state_dim]
@@ -122,4 +122,3 @@ if __name__ == "__main__":
     print("reward shape:", r.shape)
     agent = Agent(s_dim=5, a_dim=10, GAMMA=0.9)
     print(agent(s))
-
