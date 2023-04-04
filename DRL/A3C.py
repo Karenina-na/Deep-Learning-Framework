@@ -33,7 +33,7 @@ def record(g_ep, g_ep_r, ep_r, result_queue, name):
 
 
 class Worker(mp.Process):
-    def __init__(self, global_net, optimizer, g_ep, g_ep_r, result_queue, num):
+    def __init__(self, global_net: Agent, optimizer: torch.optim, g_ep, g_ep_r, result_queue, num: int):
         super(Worker, self).__init__()
         self.name = 'w%02i' % num
         self.g_ep, self.g_ep_r, self.res_queue = g_ep, g_ep_r, result_queue
@@ -84,7 +84,7 @@ def v_wrap(np_array, dtype=np.float32):
     return torch.from_numpy(np_array)
 
 
-def push_and_pull(optimizer, local_net, global_net, done, bs, ba, br, next_state):
+def push_and_pull(optimizer: torch.optim, local_net: Agent, global_net: Agent, done, bs, ba, br, next_state):
     """
     更新全局网络
     :param optimizer: 优化器
