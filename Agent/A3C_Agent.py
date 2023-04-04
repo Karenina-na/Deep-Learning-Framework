@@ -7,121 +7,119 @@ import numpy as np
 from multiprocessing import Process, Queue
 
 
-# Actor模块
-class Actor(nn.Module):
-    def __init__(self, state_dim, action_dim):
-        super(Actor, self).__init__()
-        self.fc1 = nn.Linear(state_dim, 64)  # 第一层全连接层，输入为状态
-        self.fc2 = nn.Linear(64, 128)  # 第二层全连接层
-        self.fc3 = nn.Linear(128, action_dim)  # 第三层全连接层，输出为动作空间的维度
-
-    def forward(self, state):
-        x = F.relu(self.fc1(state))  # 通过ReLU激活函数处理第一层输出
-        x = F.relu(self.fc2(x))  # 通过ReLU激活函数处理第二层输出
-        action_probs = F.softmax(self.fc3(x), dim=-1)  # 通过Softmax激活函数处理第三层输出，得到动作的概率分布
-        return action_probs
+def set_init(layers):
+    for layer in layers:
+        nn.init.normal_(layer.weight, mean=0., std=0.1)
+        nn.init.constant_(layer.bias, 0.)
 
 
-# Critic模块
-class Critic(nn.Module):
-    def __init__(self, state_dim):
-        super(Critic, self).__init__()
-        self.fc1 = nn.Linear(state_dim, 64)  # 第一层全连接层，输入为状态
-        self.fc2 = nn.Linear(64, 128)  # 第二层全连接层
-        self.fc3 = nn.Linear(128, 1)  # 第三层全连接层，输出为1维度的值，即V(s)
+class SharedAdam(torch.optim.Adam):
+    def __init__(self, params, lr=1e-3, betas=(0.9, 0.99), eps=1e-8,
+                 weight_decay=0):
+        super(SharedAdam, self).__init__(params, lr=lr, betas=betas, eps=eps, weight_decay=weight_decay)
+        # State initialization
+        for group in self.param_groups:
+            for p in group['params']:
+                state = self.state[p]
+                state['step'] = 0
+                state['exp_avg'] = torch.zeros_like(p.data)
+                state['exp_avg_sq'] = torch.zeros_like(p.data)
 
-    def forward(self, state):
-        x = F.relu(self.fc1(state))  # 通过ReLU激活函数处理第一层输出
-        x = F.relu(self.fc2(x))  # 通过ReLU激活函数处理第二层输出
-        state_value = self.fc3(x)  # 最后一层输出为状态值函数V(s)
-        return state_value
-
-
-# Agent
-class Agent:
-    def __init__(self, state_dim, action_dim, lr_actor=0.001, lr_critic=0.001, gamma=0.99):
-        self.actor_local = Actor(state_dim, action_dim)
-        self.actor_target = Actor(state_dim, action_dim)
-        self.critic_local = Critic(state_dim)
-        self.critic_target = Critic(state_dim)
-        self.gamma = gamma
-
-        # 确保目标网络与本地网络具有相同的权重
-        self.actor_target.load_state_dict(self.actor_local.state_dict())
-        self.critic_target.load_state_dict(self.critic_local.state_dict())
-
-        # 将目标网络设置为评估模式
-        self.actor_target.eval()
-        self.critic_target.eval()
-
-        # 为演员和评论家网络定义优化器
-        self.optimizer_actor = optim.Adam(self.actor_local.parameters(), lr=lr_actor)
-        self.optimizer_critic = optim.Adam(self.critic_local.parameters(), lr=lr_critic)
-
-    def act(self, state):
-        state = torch.from_numpy(state).float().unsqueeze(0)
-        with torch.no_grad():
-            action_probs = self.actor_local(state)
-        action_probs = action_probs.cpu().data.numpy()
-        action = np.random.choice(np.arange(len(action_probs.squeeze())), p=action_probs.squeeze())
-        return action
-
-    def learn(self, states, actions, rewards, next_states):
-        # 将输入转换为张量，判断数据类型
-        if not isinstance(states, torch.Tensor):
-            states = torch.from_numpy(states)
-        states = states.float()
-        if not isinstance(actions, torch.Tensor):
-            actions = torch.from_numpy(actions)
-        actions = actions.long()
-        if not isinstance(rewards, torch.Tensor):
-            rewards = torch.from_numpy(rewards)
-        rewards = rewards.float()
-        if not isinstance(next_states, torch.Tensor):
-            next_states = torch.from_numpy(next_states)
-        next_states = next_states.float()
-
-        # 计算TD误差
-        td_targets = rewards + self.gamma * self.critic_target(next_states)
-        td_errors = td_targets - self.critic_local(states)
-
-        # 更新评论家网络
-        critic_loss = (td_errors ** 2).mean()
-        self.optimizer_critic.zero_grad()
-        critic_loss.backward(retain_graph=True)
-        self.optimizer_critic.step()
-
-        # 更新演员网络
-        advantages = td_targets - self.critic_local(states).detach()
-        actor_loss = -(self.critic_local(states).detach() * advantages *
-                       self.actor_local(states).gather(1, actions)).mean()
-        self.optimizer_actor.zero_grad()
-        actor_loss.backward()
-        self.optimizer_actor.step()
-
-        # 更新目标网络
-        self.soft_update(self.actor_local, self.actor_target)
-        self.soft_update(self.critic_local, self.critic_target)
-
-    @staticmethod
-    def soft_update(local_model, target_model, tau=0.01):
-        # tau是软更新的参数, tau越小, target_model更新越慢
-        for target_param, local_param in zip(target_model.parameters(), local_model.parameters()):
-            target_param.data.copy_(tau * local_param.data + (1.0 - tau) * target_param.data)
+                # share in memory
+                state['exp_avg'].share_memory_()
+                state['exp_avg_sq'].share_memory_()
 
 
-if __name__ == '__main__':
-    agent = Agent(10, 5)
-    s = torch.randn(64, 10)
-    a = torch.randint(5, [64, 1])  # 采取的动作
-    r = torch.randn(64, 1)
-    s_ = torch.randn(64, 10)
-    print("actor_local: ", agent.actor_local(s).shape)
-    print("actor_target: ", agent.actor_target(s).shape)
-    print("critic_local: ", agent.critic_local(s).shape)
-    print("critic_target: ", agent.critic_target(s).shape)
-    agent.learn(s, a, r, s_)
-    print("actor_local one gradient: ", agent.actor_local(s).shape)
-    print("actor_target one gradient: ", agent.actor_target(s).shape)
-    print("critic_local: one gradient", agent.critic_local(s).shape)
-    print("critic_target: one gradient", agent.critic_target(s).shape)
+class Agent(nn.Module):
+    def __init__(self, s_dim, a_dim, GAMMA):
+        super(Agent, self).__init__()
+        self.s_dim = s_dim
+        self.a_dim = a_dim
+        self.GAMMA = GAMMA
+        self.pi1 = nn.Linear(s_dim, 128)
+        self.pi2 = nn.Linear(128, a_dim)
+        self.v1 = nn.Linear(s_dim, 128)
+        self.v2 = nn.Linear(128, 1)
+        set_init([self.pi1, self.pi2, self.v1, self.v2])
+        self.distribution = torch.distributions.Categorical
+
+    def forward(self, x):
+        """
+        前向传播
+        :param x:   状态 [batch_size, state_dim]
+        :return:    动作分布 [batch_size, action_dim], 价值函数 [batch_size, 1]
+        """
+        pi1 = torch.tanh(self.pi1(x))
+        logits = self.pi2(pi1)
+        v1 = torch.tanh(self.v1(x))
+        values = self.v2(v1)
+        return logits, values
+
+    def choose_action(self, s):
+        """
+        根据状态选择动作
+        :param s:   状态 [state_dim]
+        :return:    动作 [action_dim]
+        """
+        self.eval()
+        logits, _ = self.forward(s)
+        prob = F.softmax(logits, dim=1).data
+        m = self.distribution(prob)
+        return m.sample().numpy()[0]
+
+    def loss_func(self, state, actions, rewards):
+        """
+        计算损失函数
+        :param state:   状态 [batch_size, state_dim]
+        :param actions: 动作分布 [batch_size, action_dim]
+        :param rewards: 多步奖励 [batch_size, [reward1, reward2, ...]
+        :return: actor_loss, critic_loss
+        """
+        self.train()
+
+        # 计算当前状态的价值
+        logits, values = self.forward(state)
+
+        # 计算累计奖励
+        returns = []
+        for i in range(len(rewards)):
+            Gt = 0  # 未来奖励
+            pw = 0  # 未来奖励衰减权重
+            for r in rewards[i:]:
+                Gt = Gt + self.GAMMA ** pw * r
+                pw = pw + 1
+            returns.append(Gt)
+        returns = torch.tensor(returns, dtype=torch.float32).view(-1, 1)
+
+        # 计算 advantage
+        advantages = []
+        for i in range(len(rewards)):
+            advantages.append(returns[i] - values[i])
+
+        # 计算损失函数
+        actor_loss = []
+        critic_loss = []
+        for logit, advantage, action in zip(logits, advantages, actions):
+            m = self.distribution(F.softmax(logit, dim=0))
+            log_prob = m.log_prob(action)
+            critic_loss.append(F.smooth_l1_loss(values, returns))
+            actor_loss.append(-log_prob * advantage)
+
+        # 总损失函数
+        total_loss = torch.stack(actor_loss).sum() + torch.stack(critic_loss).sum()
+
+        return torch.stack(actor_loss).sum().detach().numpy(), torch.stack(
+            critic_loss).sum().detach().numpy(), total_loss
+
+
+if __name__ == "__main__":
+    batch_size = 5
+    s = torch.rand([batch_size, 5], dtype=torch.float32)
+    a = torch.rand([batch_size, 10], dtype=torch.float32)
+    r = torch.rand([batch_size, 1], dtype=torch.float32)
+    print("state shape:", s.shape)
+    print("action prob shape:", a.shape)
+    print("reward shape:", r.shape)
+    agent = Agent(s_dim=5, a_dim=10, GAMMA=0.9)
+    print(agent(s))
+

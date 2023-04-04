@@ -131,7 +131,7 @@ def train():
                         env_e.close()
                         break
 
-    agent.save_model("./Result/Model")
+    # agent.save_model("./Result/Model")
 
 
 def test():
