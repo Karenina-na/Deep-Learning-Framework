@@ -9,6 +9,11 @@ import os
 
 # position encoding
 def get_sinusoid_encoding_table(n_position, d_model):
+    """
+    n_position: int the number of position
+    d_model: int the number of dimension
+    """
+
     # PE(pos,2i) = sin(pos/10000^(2i/d_model))
     # PE(pos,2i+1) = cos(pos/10000^(2i/d_model))
     def cal_angle(position, hid_idx):
@@ -65,7 +70,8 @@ class ScaledDotProductAttention(nn.Module):
         # attn = softmax(Q * K^T / sqrt(d_k))
         # context = softmax(attn * V)
         """
-        scores = torch.matmul(Q, K.transpose(-1, -2)) / np.sqrt(self.d_k)  # scores : [batch_size, n_heads, len_q, len_k]
+        scores = torch.matmul(Q, K.transpose(-1, -2)) / np.sqrt(
+            self.d_k)  # scores : [batch_size, n_heads, len_q, len_k]
         scores.masked_fill_(attn_mask, -1e9)  # Fills elements of self tensor with value where mask is True.
 
         attn = nn.Softmax(dim=-1)(scores)  # attention : [batch_size, n_heads, len_q, len_k]
@@ -132,3 +138,45 @@ class PoswiseFeedForwardNet(nn.Module):
         residual = inputs
         output = self.fc(inputs)
         return nn.LayerNorm(self.d_model)(output + residual)  # [batch_size, seq_len, d_model]
+
+
+if __name__ == "__main__":
+    # positional encoding
+    n_position = 10
+    d_model = 10
+    print(get_sinusoid_encoding_table(n_position, d_model).shape)
+
+    # padding mask
+    seq = torch.tensor([[1, 2, 3, 0, 0],
+                        [1, 2, 0, 0, 0]])
+    print(get_attn_pad_mask(seq, seq).shape)
+
+    # subsequence mask
+    print(get_attn_subsequence_mask(seq).shape)
+
+    # scaled dot product attention
+    Q = torch.rand(2, 3, 5)
+    K = torch.rand(2, 3, 5)
+    V = torch.rand(2, 3, 5)
+    attn_mask = torch.zeros(2, 3, 3)
+    context, attn = ScaledDotProductAttention(d_k=5).forward(Q, K, V, attn_mask)
+    print(context.shape, attn.shape)
+
+    # multi-head attention
+    d_model = 10
+    d_k = 5
+    d_v = 5
+    n_heads = 2
+    input_Q = torch.rand(2, 3, d_model)
+    input_K = torch.rand(2, 3, d_model)
+    input_V = torch.rand(2, 3, d_model)
+    attn_mask = torch.zeros(2, 3, 3)
+    output, attn = MultiHeadAttention(d_model, d_k, d_v, n_heads).forward(input_Q, input_K, input_V, attn_mask)
+    print(output.shape, attn.shape)
+
+    # position-wise feed forward net
+    d_model = 10
+    d_ff = 20
+    inputs = torch.rand(2, 3, d_model)
+    output = PoswiseFeedForwardNet(d_model, d_ff).forward(inputs)
+    print(output.shape)
