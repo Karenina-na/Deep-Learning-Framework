@@ -62,12 +62,13 @@ def LoadData():
     print("S: Symbol that shows starting of decoding input")
     print("E: Symbol that shows starting of decoding output")
     print("P: Symbol that will fill in blank sequence if current batch data size is shorter than time steps")
+    env_inputs, dec_inputs, dec_outputs = make_data(sentences)
     for i in range(len(sentences)):
         print()
         print("we want to translate: %s | to %s" % (sentences[i][0], sentences[i][2]))
-        print("the input of encoder is: %s" % sentences[i][0])
-        print("the input of decoder is: %s" % sentences[i][1])
-        print("the output of decoder is: %s" % sentences[i][2])
+        print("the input of encoder is: %s -> %s" % (sentences[i][0], env_inputs[i].numpy()))
+        print("the input of decoder is: %s -> %s" % (sentences[i][1], dec_inputs[i].numpy()))
+        print("the output of decoder is: %s -> %s" % (sentences[i][2], dec_outputs[i].numpy()))
     print()
     loader = Data.DataLoader(MyDataSet(enc_inputs, dec_inputs, dec_outputs), 2, True)
     return loader, src_vocab_size, tgt_vocab_size

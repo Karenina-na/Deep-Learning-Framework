@@ -10,7 +10,7 @@ from Coder.Decoder import Decoder
 
 class Transformer(nn.Module):
     def __init__(self, src_vocab_size, tgt_vocab_size, d_model, n_layers,
-                d_ff, d_k, d_v, n_heads):
+                 d_ff, d_k, d_v, n_heads):
         super(Transformer, self).__init__()
         self.encoder = Encoder(src_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads)
         self.decoder = Decoder(tgt_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads)
@@ -49,6 +49,9 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss(ignore_index=0)
     optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.99)
 
+    print(model)
+    print("training start")
+
     for epoch in range(30):
         for enc_inputs, dec_inputs, dec_outputs in loader:
             '''
@@ -66,12 +69,12 @@ if __name__ == "__main__":
             loss.backward()
             optimizer.step()
 
-
     # Test
     idx2word = LoadTestData()
 
     enc_inputs, dec_inputs, _ = next(iter(loader))
     predict, _, _, _ = \
-        model(enc_inputs[0].view(1, -1), dec_inputs[0].view(1, -1))  # model(enc_inputs[0].view(1, -1), greedy_dec_input)
+        model(enc_inputs[0].view(1, -1),
+              dec_inputs[0].view(1, -1))  # model(enc_inputs[0].view(1, -1), greedy_dec_input)
     predict = predict.data.max(1, keepdim=True)[1]
     print(enc_inputs[0], '->', [idx2word[n.item()] for n in predict.squeeze()])
