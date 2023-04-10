@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from torch import nn
-from Block.GoogLeBlock_2d import GoogLeBlock
+from Net.Block.GoogLeBlock_2d import GoogLeBlock
 
 
 class GoogLeNet(nn.Module):
