@@ -36,10 +36,13 @@ class Agent(nn.Module):
         self.s_dim = s_dim
         self.a_dim = a_dim
         self.GAMMA = GAMMA
+        # policy network
         self.pi1 = nn.Linear(s_dim, 128)
         self.pi2 = nn.Linear(128, a_dim)
+        # value network
         self.v1 = nn.Linear(s_dim, 128)
         self.v2 = nn.Linear(128, 1)
+        # init
         set_init([self.pi1, self.pi2, self.v1, self.v2])
         self.distribution = torch.distributions.Categorical
 
