@@ -128,18 +128,26 @@ class LSTM(torch.nn.Module):
         # 计算下一时刻的隐层输出
         self.ht = self.output_gate(self.cell, input, self.ht)
 
-        # 预测输出
-        return self.predict(self.ht)
+        # 预测输出概率
+        return torch.softmax(self.predict(self.ht), dim=1)
+
+    def reset(self):
+        self.ht = torch.zeros(1, self.hidden_size)
+        self.cell = torch.zeros(1, self.hidden_size)
 
 
 if __name__ == '__main__':
-    # 输入数据 [batch_size, seq_len, input_size]
-    input = torch.randn(10, 5, 10)
+    # 输入数据 [batch_size, sel_len, [word_embedding]]
+    input = torch.randn(64, 10, 32)
 
     # 初始化模型
-    model = LSTM(input_size=10, hidden_size=20, output_size=5)
+    model = LSTM(input_size=32, hidden_size=64, output_size=32)
 
-    # 计算下一时刻的隐层输出和cell和预测输出
-    output = model(input)
+    # 模拟训练
+    for i in range(input.size(1)):
+        # 训练
+        output = model(input[:, i, :])
+        print(output.shape)
 
-    print(output.shape)
+    # 重置状态
+    model.reset()
