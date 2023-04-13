@@ -1,6 +1,4 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from Net.Block.DropBlock_1d import Drop as DropBlock_1d
 from Net.Block.ResNeStBlock_1d import ResNeStBlock_1d
 
