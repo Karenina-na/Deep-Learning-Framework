@@ -1,10 +1,8 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import torch.multiprocessing as mp
 import gym
 import os
-from Agent.A3C_Agent import Agent, SharedAdam
+from Net.Agent.A3C_Agent import Agent, SharedAdam
 import numpy as np
 
 os.environ["OMP_NUM_THREADS"] = "1"
