@@ -1,5 +1,5 @@
 import torch
-from Net.Block.ResBottlrneck_3conv_1d import ResBottlrneck as Bottlrneck
+from Models.Block.ResBottlrneck_3conv_1d import ResBottlrneck as Bottlrneck
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

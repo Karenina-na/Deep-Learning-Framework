@@ -38,7 +38,8 @@ conda create --name <env> --file requirements.yml
 - Data目录下为数据集
 - DataProcess为数据处理
 - Main目录下为任务主函数
-- Net下有常用神经网络代码块与神经网络实现
+- Model_hub为预训练模型
+- Models下有常用神经网络代码块与神经网络实现
 - Result放置深度学习结果
 - test为测试文件夹
 - util为工具类函数
