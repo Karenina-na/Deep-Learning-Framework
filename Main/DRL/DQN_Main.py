@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import random
-from Net.Agent.DQN_Agent import Agent
+from Models.Agent.DQN_Agent import Agent
 
 # 探索率初始
 EPSILON_START = 1.0

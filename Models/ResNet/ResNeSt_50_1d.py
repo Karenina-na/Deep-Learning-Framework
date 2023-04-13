@@ -1,6 +1,6 @@
 import torch
-from Net.Block.DropBlock_1d import Drop as DropBlock_1d
-from Net.Block.ResNeStBlock_1d import ResNeStBlock_1d
+from Models.Block.DropBlock_1d import Drop as DropBlock_1d
+from Models.Block.ResNeStBlock_1d import ResNeStBlock_1d
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

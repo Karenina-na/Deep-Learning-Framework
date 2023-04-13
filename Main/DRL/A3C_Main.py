@@ -2,7 +2,7 @@ import torch
 import torch.multiprocessing as mp
 import gym
 import os
-from Net.Agent.A3C_Agent import Agent, SharedAdam
+from Models.Agent.A3C_Agent import Agent, SharedAdam
 import numpy as np
 
 os.environ["OMP_NUM_THREADS"] = "1"
