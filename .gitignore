@@ -162,4 +162,5 @@ cython_debug/
 
 # test
 test/
-Data/
+Data/**
+!Data/__init__.py
