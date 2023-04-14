@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data as Data
 import numpy as np
-from Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet
-from Coder.Modules import get_sinusoid_encoding_table, get_attn_pad_mask, get_attn_subsequence_mask
+from Models.Transformer.Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet
+from Models.Transformer.Coder.Modules import get_sinusoid_encoding_table, get_attn_pad_mask, get_attn_subsequence_mask
 
 
 # one decoder layer
