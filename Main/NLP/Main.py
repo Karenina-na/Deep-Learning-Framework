@@ -29,6 +29,9 @@ if __name__ == "__main__":
     criterion = nn.CrossEntropyLoss(ignore_index=0)
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.99)
 
+    print("source: ", data.src_vocab_size)
+    print("target: ", data.tgt_vocab_size)
+
     print("training start >>>>>\n")
 
     for epoch in range(Epoch):
