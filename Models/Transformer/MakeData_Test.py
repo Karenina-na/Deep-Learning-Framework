@@ -75,4 +75,4 @@ def LoadData():
 
 
 def LoadTestData():
-    return idx2word
+    return idx2word, tgt_vocab

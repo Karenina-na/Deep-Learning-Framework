@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data as Data
 import numpy as np
-from Models.Transformer.Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet
-from Models.Transformer.Coder.Modules import get_sinusoid_encoding_table, get_attn_pad_mask, get_attn_subsequence_mask
+from Models.Transformer.Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet, PositionalEncoding
+from Models.Transformer.Coder.Modules import get_attn_pad_mask, get_attn_subsequence_mask
 
 
 # one decoder layer
@@ -38,7 +38,7 @@ class Decoder(nn.Module):
     def __init__(self, tgt_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads):
         super(Decoder, self).__init__()
         self.tgt_emb = nn.Embedding(tgt_vocab_size, d_model)
-        self.pos_emb = nn.Embedding.from_pretrained(get_sinusoid_encoding_table(tgt_vocab_size, d_model), freeze=True)
+        self.pos_emb = PositionalEncoding(d_model)
         self.layers = nn.ModuleList([DecoderLayer(d_model, d_ff, d_k, d_v, n_heads) for _ in range(n_layers)])
 
     def forward(self, dec_inputs, enc_inputs, enc_outputs):
@@ -48,14 +48,13 @@ class Decoder(nn.Module):
         enc_outputs: [batch_size, src_len, d_model]
         """
         word_emb = self.tgt_emb(dec_inputs)  # [batch_size, tgt_len, d_model]
-        pos_emb = self.pos_emb(dec_inputs)  # [batch_size, tgt_len, d_model]
-        dec_outputs = word_emb + pos_emb
+        dec_outputs = self.pos_emb(word_emb.transpose(0, 1)).transpose(0, 1)  # [batch_size, tgt_len, d_model]
         dec_self_attn_pad_mask = get_attn_pad_mask(dec_inputs, dec_inputs)  # [batch_size, tgt_len, tgt_len]
         dec_self_attn_subsequent_mask = get_attn_subsequence_mask(dec_inputs)  # [batch_size, tgt_len]
         dec_self_attn_mask = \
             torch.gt((dec_self_attn_pad_mask + dec_self_attn_subsequent_mask), 0)  # [batch_size, tgt_len, tgt_len]
 
-        dec_enc_attn_mask = get_attn_pad_mask(dec_inputs, enc_inputs)  # [batc_size, tgt_len, src_len]
+        dec_enc_attn_mask = get_attn_pad_mask(dec_inputs, enc_inputs)  # [batch_size, tgt_len, src_len]
 
         dec_self_attns, dec_enc_attns = [], []
         for layer in self.layers:

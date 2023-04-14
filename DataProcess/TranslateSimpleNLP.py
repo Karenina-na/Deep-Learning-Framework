@@ -29,6 +29,8 @@ class PrepareData(Data.Dataset):
 
         self.src_vocab_size = len(self.en_word_dict)
         self.tgt_vocab_size = len(self.cn_word_dict)
+        self.max_len_en = 0
+        self.max_len_cn = 0
 
 
     def __len__(self):
@@ -37,8 +39,7 @@ class PrepareData(Data.Dataset):
     def __getitem__(self, idx):
         return self.train_en[idx], self.train_cn[idx]
 
-    @staticmethod
-    def load_data(path):
+    def load_data(self, path):
         en = []
         cn = []
         with open(path, 'r', encoding='utf-8') as f:
@@ -52,13 +53,13 @@ class PrepareData(Data.Dataset):
         # [['BOS', 'i', 'am', 'a', 'student', '.', 'EOS'], ...]
         # [['BOS', '我', '是', '一名', '学生', '。', 'EOS'], ...]
             # 找到最大的句子长度
-            max_len_en = max([len(s) for s in en])
-            max_len_cn = max([len(s) for s in cn])
+            self.max_len_en = max([len(s) for s in en])
+            self.max_len_cn = max([len(s) for s in cn])
             # 填充[PAD]，使得每个句子的长度都相同
             for i in range(len(en)):
-                en[i] = en[i] + ["[PAD]"] * (max_len_en - len(en[i]))
+                en[i] = en[i] + ["[PAD]"] * (self.max_len_en - len(en[i]))
             for i in range(len(cn)):
-                cn[i] = cn[i] + ["[PAD]"] * (max_len_cn - len(cn[i]))
+                cn[i] = cn[i] + ["[PAD]"] * (self.max_len_cn - len(cn[i]))
         return en, cn
 
     @staticmethod

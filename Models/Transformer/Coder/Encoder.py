@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data as Data
 import numpy as np
-from Models.Transformer.Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet
-from Models.Transformer.Coder.Modules import get_sinusoid_encoding_table, get_attn_pad_mask
+from Models.Transformer.Coder.Modules import MultiHeadAttention, PoswiseFeedForwardNet, PositionalEncoding
+from Models.Transformer.Coder.Modules import get_attn_pad_mask
 
 
 # one encoder layer
@@ -33,7 +33,7 @@ class Encoder(nn.Module):
     def __init__(self, src_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads):
         super(Encoder, self).__init__()
         self.src_emb = nn.Embedding(src_vocab_size, d_model)
-        self.pos_emb = nn.Embedding.from_pretrained(get_sinusoid_encoding_table(src_vocab_size, d_model), freeze=True)
+        self.pos_emb = PositionalEncoding(d_model)
         self.layers = nn.ModuleList([EncoderLayer(d_model, d_ff, d_k, d_v, n_heads) for _ in range(n_layers)])
 
     def forward(self, enc_inputs):
@@ -41,8 +41,7 @@ class Encoder(nn.Module):
         enc_inputs: [batch_size, src_len]
         """
         word_emb = self.src_emb(enc_inputs)  # [batch_size, src_len, d_model]
-        pos_emb = self.pos_emb(enc_inputs)  # [batch_size, src_len, d_model]
-        enc_outputs = word_emb + pos_emb
+        enc_outputs = self.pos_emb(word_emb.transpose(0, 1)).transpose(0, 1)  # [batch_size, src_len, d_model]
         enc_self_attn_mask = get_attn_pad_mask(enc_inputs, enc_inputs)  # [batch_size, src_len, src_len]
         enc_self_attns = []
         for layer in self.layers:
