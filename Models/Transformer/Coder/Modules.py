@@ -31,6 +31,7 @@ def get_sinusoid_encoding_table(n_position, d_model):
 # padding mask
 def get_attn_pad_mask(seq_q, seq_k):
     """
+    For masking out the padding part of key sequence.
     seq_q: [batch_size, seq_len]
     seq_k: [batch_size, seq_len]
     seq_len could be src_len or it could be tgt_len
@@ -46,11 +47,13 @@ def get_attn_pad_mask(seq_q, seq_k):
 # subsequent mask
 def get_attn_subsequence_mask(seq):
     """
+    Used in the decoder to mask the future info.
     seq: [batch_size, tgt_len]
     """
     attn_shape = [seq.size(0), seq.size(1), seq.size(1)]
+    device = seq.device
     subsequence_mask = np.triu(np.ones(attn_shape), k=1)  # Upper triangular matrix
-    subsequence_mask = torch.from_numpy(subsequence_mask).byte()
+    subsequence_mask = torch.from_numpy(subsequence_mask).byte().to(device)
     return subsequence_mask
 
 
@@ -87,6 +90,7 @@ class MultiHeadAttention(nn.Module):
         self.W_K = nn.Linear(d_model, d_k * n_heads, bias=False)
         self.W_V = nn.Linear(d_model, d_v * n_heads, bias=False)
         self.fc = nn.Linear(n_heads * d_v, d_model, bias=False)
+        self.layer_norm = nn.LayerNorm(d_model, eps=1e-6)
 
         self.d_model = d_model
         self.d_k = d_k
@@ -117,7 +121,7 @@ class MultiHeadAttention(nn.Module):
         context = context.transpose(1, 2). \
             reshape(batch_size, -1, self.n_heads * self.d_v)  # context: [batch_size, len_q, n_heads * d_v]
         output = self.fc(context)  # [batch_size, len_q, d_model]
-        return nn.LayerNorm(self.d_model)(output + residual), attn
+        return self.layer_norm(output + residual), attn
 
 
 # position-wise feed forward net
@@ -130,6 +134,7 @@ class PoswiseFeedForwardNet(nn.Module):
             nn.Linear(d_ff, d_model, bias=False)
         )
         self.d_model = d_model
+        self.layer_norm = nn.LayerNorm(d_model, eps=1e-6)
 
     def forward(self, inputs):
         """
@@ -137,7 +142,7 @@ class PoswiseFeedForwardNet(nn.Module):
         """
         residual = inputs
         output = self.fc(inputs)
-        return nn.LayerNorm(self.d_model)(output + residual)  # [batch_size, seq_len, d_model]
+        return self.layer_norm(output + residual)  # [batch_size, seq_len, d_model]
 
 
 if __name__ == "__main__":

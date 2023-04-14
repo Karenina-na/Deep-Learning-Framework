@@ -4,8 +4,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data as Data
 import numpy as np
-from Coder.Encoder import Encoder
-from Coder.Decoder import Decoder
+from Models.Transformer.Coder.Encoder import Encoder
+from Models.Transformer.Coder.Decoder import Decoder
 
 
 class Transformer(nn.Module):
@@ -55,9 +55,9 @@ if __name__ == "__main__":
     for epoch in range(30):
         for enc_inputs, dec_inputs, dec_outputs in loader:
             '''
-            enc_inputs: [batch_size, src_len]
-            dec_inputs: [batch_size, tgt_len]
-            dec_outputs: [batch_size, tgt_len]
+            enc_inputs: [batch_size, [src_sentence]]
+            dec_inputs: [batch_size, [tgt_sentence]
+            dec_outputs: [batch_size, [tgt_sentence]
             '''
             # enc_inputs, dec_inputs, dec_outputs = enc_inputs.to(device), dec_inputs.to(device), dec_outputs.to(device)
             # outputs: [batch_size * tgt_len, tgt_vocab_size]
