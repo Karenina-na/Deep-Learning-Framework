@@ -163,6 +163,5 @@ cython_debug/
 # test
 test/
 Data/**
-DataProcess/**
 !Data/__init__.py
-!DataProcess/__init__.py
+!Data/translate_chinese_to_english_simple
