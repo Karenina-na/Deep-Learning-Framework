@@ -45,8 +45,7 @@ if __name__ == "__main__":
     n_heads = 8  # number of heads in Multi-Head Attention
     lr = 0.001  # learning rate
 
-    model = Transformer(src_vocab_size, tgt_vocab_size, d_model, n_layers,
-                        d_ff, d_k, d_v, n_heads)
+    model = Transformer(src_vocab_size, tgt_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads)
     criterion = nn.CrossEntropyLoss(ignore_index=0)
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.99)
 
