@@ -37,7 +37,7 @@ class Worker(mp.Process):
         self.g_ep, self.g_ep_r, self.res_queue = g_ep, g_ep_r, result_queue
         self.gnet, self.opt = global_net, optimizer
         # 创建局部网络
-        self.lnet = Agent(N_S, N_A, GAMMA)
+        self.lnet = Agent(N_S, N_A, GAMMA, model_path=MODEL_PATH)
         self.env = env
 
     def run(self):
@@ -125,19 +125,20 @@ def push_and_pull(optimizer: torch.optim, local_net: Agent, global_net: Agent, d
     local_net.load_state_dict(global_net.state_dict())
 
 
-UPDATE_GLOBAL_ITER = 5
+UPDATE_GLOBAL_ITER = 10
 PARALLEL_NUM = mp.cpu_count()
 GAMMA = 0.9
 MAX_EP = 3000
-LEARNING_RATE = 1e-4
+LEARNING_RATE = 1e-3
 BETAS = (0.92, 0.999)
+MODEL_PATH = "../../Result/checkpoints"
 
 env = gym.make('CartPole-v1')
 N_S = env.observation_space.shape[0]
 N_A = env.action_space.n
 
 if __name__ == "__main__":
-    gnet = Agent(N_S, N_A, GAMMA)  # global network
+    gnet = Agent(N_S, N_A, GAMMA, MODEL_PATH)  # global network
     gnet.share_memory()  # share the global parameters in multiprocessing
     opt = SharedAdam(gnet.parameters(), lr=LEARNING_RATE, betas=BETAS)  # global optimizer
     global_ep, global_ep_r, res_queue = mp.Value('i', 0), mp.Value('d', 0.), mp.Queue()
@@ -174,3 +175,6 @@ if __name__ == "__main__":
         if d:
             break
     env_test.close()
+
+    # 保存模型
+    gnet.save_model()

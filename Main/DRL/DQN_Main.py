@@ -16,11 +16,13 @@ TARGET_UPDATE_FREQUENCY = 10
 # 平均reward到达多少演示
 DEMO_REWARD = 100
 # 训练次数
-n_episode = 1000
+n_episode = 200
 # 每次训练的最大步数
-n_time_step = 500
+n_time_step = 400
 # 游戏
 GAME = "LunarLander-v2"
+# model
+model_path = "../../Result/checkpoints"
 
 
 def train():
@@ -33,7 +35,7 @@ def train():
 
     """Generate agents"""
 
-    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='train', model_path="../Result/Model")
+    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='train', model_path=model_path)
 
     """Main Training Loop"""
 
@@ -131,7 +133,7 @@ def train():
                         env_e.close()
                         break
 
-    # agent.save_model("./Result/Model")
+    agent.save_model()
 
 
 def test():
