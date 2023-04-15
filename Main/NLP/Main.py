@@ -70,12 +70,13 @@ def train():
 
 def test():
     # 加载模型
+    print("loading Data >>>>>\n")
     size = pd.read_csv("../../Result/checkpoints/transformer_size.csv")
     src_vocab_size = int(size.iloc[0, 1])
     tgt_vocab_size = int(size.iloc[1, 1])
-    start_token_id = int(size.iloc[2, 1])
-    end_token_id = int(size.iloc[3, 1])
-    pad_token_id = int(size.iloc[4, 1])
+    start_token_id = int(size.iloc[2, 1])  # src_start_token_id == tgt_start_token_id
+    end_token_id = int(size.iloc[3, 1])  # src_end_token_id == tgt_end_token_id
+    pad_token_id = int(size.iloc[4, 1])  # src_pad_token_id == tgt_pad_token_id
     src_sentence_max_len = int(size.iloc[5, 1])
     tgt_sentence_max_len = int(size.iloc[6, 1])
 
@@ -102,12 +103,14 @@ def test():
     sentences = torch.tensor(sentences, dtype=torch.long).to(device)
 
     # 加载模型
+    print("loading Model >>>>>\n")
     model = Transformer(src_vocab_size, tgt_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads)
     model.load_state_dict(torch.load("../../Result/checkpoints/transformer.pth"))
     model.to(device)
     model.eval()
 
     # 生成句子
+    print("generating sentences >>>>>\n")
     for i in range(len(sentences)):
         greedy_dec_input = greedy_decoder(model, sentences[i].view(1, -1),
                                           src_start_symbol=start_token_id, tgt_end_symbol=end_token_id,
@@ -118,5 +121,5 @@ def test():
 
 
 if __name__ == "__main__":
-    # train()
-    test()
+    train()
+    # test()

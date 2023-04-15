@@ -32,7 +32,7 @@ class Transformer(nn.Module):
         return dec_logits.view(-1, dec_logits.size(-1)), enc_self_attns, dec_self_attns, dec_enc_attns
 
 
-def greedy_decoder(model, enc_input, src_start_symbol, tgt_end_symbol, device):
+def greedy_decoder(model, enc_input, src_start_symbol, tgt_end_symbol, device, max_len=1000):
     """
     For simplicity, a Greedy Decoder is Beam search when K=1. This is necessary for inference as we don't know the
     target sequence input. Therefore we try to generate the target input word by word, then feed it into the transformer.
@@ -42,13 +42,14 @@ def greedy_decoder(model, enc_input, src_start_symbol, tgt_end_symbol, device):
     :param src_start_symbol: The start symbol. In this example it is 'S' which corresponds to index 4
     :param tgt_end_symbol: The target word symbol. In this example it is '.' which corresponds to index 8
     :param device : CUDA or CPU
+    :param max_len : max seq long
     :return: The target input
     """
     enc_outputs, enc_self_attns = model.encoder(enc_input)
     dec_input = torch.zeros(1, 0).type_as(enc_input.data)
     terminal = False
     next_symbol = src_start_symbol
-    while not terminal:
+    while not terminal and max_len > 0:
         dec_input = torch.cat([dec_input.detach(), torch.tensor([[next_symbol]], dtype=enc_input.dtype).to(device)], -1)
         dec_outputs, _, _ = model.decoder(dec_input, enc_input, enc_outputs)
         projected = model.projection(dec_outputs)
@@ -57,6 +58,7 @@ def greedy_decoder(model, enc_input, src_start_symbol, tgt_end_symbol, device):
         next_symbol = next_word
         if next_symbol == tgt_end_symbol:
             terminal = True
+        max_len -= 1
     return dec_input
 
 

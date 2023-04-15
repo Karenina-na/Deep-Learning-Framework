@@ -135,5 +135,5 @@ if __name__ == "__main__":
     # print(data.pad_token_id)
     # print(data.start_token_id)
     # print(data.end_token_id)
-    print(data.max_len_en)
-    print(data.max_len_cn)
+    # print(data.max_len_en)
+    # print(data.max_len_cn)
