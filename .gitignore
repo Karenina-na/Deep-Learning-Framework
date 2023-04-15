@@ -166,3 +166,6 @@ Data/**
 !Data/__init__.py
 !Data/translate_chinese_to_english_simple
 !Data/translate_chinese_to_english_simple/*.txt
+/Result/checkpoints/**
+/Result/images/**
+/Result/logs/**
