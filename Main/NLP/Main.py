@@ -10,11 +10,11 @@ import pandas as pd
 d_model = 512  # Embedding Size
 d_ff = 2048  # FeedForward dimension
 d_k = d_v = 64  # dimension of K(=Q), V
-n_layers = 3  # number of Encoder of Decoder Layer
+n_layers = 6  # number of Encoder of Decoder Layer
 n_heads = 8  # number of heads in Multi-Head Attention
 lr = 0.001  # learning rate
 BatchSize = 256  # Batch size
-Epoch = 0  # Epoch
+Epoch = 500  # Epoch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
