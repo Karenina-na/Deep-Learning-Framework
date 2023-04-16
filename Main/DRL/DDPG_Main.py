@@ -124,5 +124,5 @@ buffer_min_size = 500  # 经验回放池最小容量
 buffer_batch_size = 32  # 经验回放池采样批次大小
 
 if __name__ == "__main__":
-    train()
-    # test()
+    # train()
+    test()

@@ -132,12 +132,14 @@ MAX_EP = 3000
 LEARNING_RATE = 1e-3
 BETAS = (0.92, 0.999)
 MODEL_PATH = "../../Result/checkpoints"
+game_name = "CartPole-v1"
 
-env = gym.make('CartPole-v1')
-N_S = env.observation_space.shape[0]
-N_A = env.action_space.n
 
-if __name__ == "__main__":
+def train():
+    env = gym.make(game_name, render="rgb_array")
+    N_S = env.observation_space.shape[0]
+    N_A = env.action_space.n
+
     gnet = Agent(N_S, N_A, GAMMA, MODEL_PATH)  # global network
     gnet.share_memory()  # share the global parameters in multiprocessing
     opt = SharedAdam(gnet.parameters(), lr=LEARNING_RATE, betas=BETAS)  # global optimizer
@@ -178,3 +180,22 @@ if __name__ == "__main__":
 
     # 保存模型
     gnet.save_model()
+
+
+def test():
+    env_test = gym.make(game_name, render_mode="human")
+    N_S = env_test.observation_space.shape[0]
+    N_A = env_test.action_space.n
+    gnet = Agent(N_S, N_A, GAMMA, MODEL_PATH)  # global network
+    s, _ = env_test.reset()
+    while True:
+        a = gnet.choose_action(v_wrap(s[None, :]))
+        s, _, d, _, _ = env_test.step(a)
+        if d:
+            break
+    env_test.close()
+
+
+if __name__ == "__main__":
+    train()
+    # test()

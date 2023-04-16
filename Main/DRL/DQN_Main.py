@@ -5,25 +5,6 @@ import torch.nn as nn
 import random
 from Models.Agent.DQN_Agent import Agent
 
-# 探索率初始
-EPSILON_START = 1.0
-# 探索率结束
-EPSILON_END = 0.02
-# 探索率衰减率
-EPSILON_DECAY = 100000
-# Target Network 更新频率
-TARGET_UPDATE_FREQUENCY = 10
-# 平均reward到达多少演示
-DEMO_REWARD = 100
-# 训练次数
-n_episode = 200
-# 每次训练的最大步数
-n_time_step = 400
-# 游戏
-GAME = "LunarLander-v2"
-# model
-model_path = "../../Result/checkpoints"
-
 
 def train():
     env = gym.make(GAME, render_mode='rgb_array')
@@ -143,16 +124,14 @@ def test():
     n_state = len(s)
     n_action = env.action_space.n
 
-    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='test', model_path="../Result/Model")
+    agent = Agent(idx=0, n_input=n_state, n_output=n_action, mode='test', model_path=model_path)
 
     reward_all = 0
 
     # 演示
     step = 0
     while True:
-
         a = agent.online_net.act(s)
-
         s, r, done, trunk, info = env.step(a)
         reward_all += r
         step += 1
@@ -168,6 +147,25 @@ def test():
     env.close()
 
 
+# 探索率初始
+EPSILON_START = 1.0
+# 探索率结束
+EPSILON_END = 0.02
+# 探索率衰减率
+EPSILON_DECAY = 100000
+# Target Network 更新频率
+TARGET_UPDATE_FREQUENCY = 10
+# 平均reward到达多少演示
+DEMO_REWARD = 100
+# 训练次数
+n_episode = 200
+# 每次训练的最大步数
+n_time_step = 400
+# 游戏
+GAME = "LunarLander-v2"
+# model
+model_path = "../../Result/checkpoints"
+
 if __name__ == '__main__':
-    train()
-    # test()
+    # train()
+    test()
