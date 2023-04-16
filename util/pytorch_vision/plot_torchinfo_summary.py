@@ -9,7 +9,7 @@ def torchinfo_summary(net, tensor):
     :param net: 网络
     :param tensor: 输入
     """
-    summary(model, input_size=tensor)
+    summary(net, input_data=tensor)
 
 
 if __name__ == '__main__':
