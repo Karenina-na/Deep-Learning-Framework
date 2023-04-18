@@ -119,11 +119,7 @@ class Agent(nn.Module):
             critic_loss.append(F.smooth_l1_loss(values, returns))
             actor_loss.append(-log_prob * advantage)
 
-        # 总损失函数
-        total_loss = torch.stack(actor_loss).sum() + torch.stack(critic_loss).sum()
-
-        return torch.stack(actor_loss).sum().detach().numpy(), torch.stack(
-            critic_loss).sum().detach().numpy(), total_loss
+        return torch.stack(actor_loss).sum(), torch.stack(critic_loss).sum()
 
     def save_model(self):
         if self.model_path is not None:

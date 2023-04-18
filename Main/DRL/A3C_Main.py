@@ -31,13 +31,13 @@ def record(g_ep, g_ep_r, ep_r, result_queue, name):
 
 
 class Worker(mp.Process):
-    def __init__(self, global_net: Agent, optimizer: torch.optim, g_ep, g_ep_r, result_queue, num: int):
+    def __init__(self, global_net: Agent, optimizer: torch.optim, g_ep, g_ep_r, result_queue, num: int, env):
         super(Worker, self).__init__()
         self.name = 'w%02i' % num
         self.g_ep, self.g_ep_r, self.res_queue = g_ep, g_ep_r, result_queue
         self.gnet, self.opt = global_net, optimizer
         # 创建局部网络
-        self.lnet = Agent(N_S, N_A, GAMMA, model_path=MODEL_PATH)
+        self.lnet = Agent(global_net.s_dim, global_net.a_dim, GAMMA, model_path=MODEL_PATH)
         self.env = env
 
     def run(self):
@@ -108,15 +108,18 @@ def push_and_pull(optimizer: torch.optim, local_net: Agent, global_net: Agent, d
     buffer_v_target.reverse()
 
     # 计算损失函数
-    actor_loss, critic_loss, loss = \
+    actor_loss, critic_loss = \
         local_net.loss_func(
             v_wrap(np.vstack(bs)),
             v_wrap(np.array(ba), dtype=np.int64) if ba[0].dtype == np.int64 else v_wrap(np.vstack(ba)),
             v_wrap(np.array(buffer_v_target)[:, None]))
 
+    # loss = actor_loss + critic_loss
+
     # 反向传播，和全局网络同步
     optimizer.zero_grad()
-    loss.backward()
+    critic_loss.backward(retain_graph=True)  # 保留计算图
+    actor_loss.backward()
     for lp, gp in zip(local_net.parameters(), global_net.parameters()):
         gp._grad = lp.grad
     optimizer.step()
@@ -136,7 +139,7 @@ game_name = "CartPole-v1"
 
 
 def train():
-    env = gym.make(game_name, render="rgb_array")
+    env = gym.make(game_name, render_mode="rgb_array")
     N_S = env.observation_space.shape[0]
     N_A = env.action_space.n
 
@@ -146,7 +149,7 @@ def train():
     global_ep, global_ep_r, res_queue = mp.Value('i', 0), mp.Value('d', 0.), mp.Queue()
 
     # 并发训练
-    workers = [Worker(gnet, opt, global_ep, global_ep_r, res_queue, i) for i in range(PARALLEL_NUM)]
+    workers = [Worker(gnet, opt, global_ep, global_ep_r, res_queue, i, env) for i in range(PARALLEL_NUM)]
     [w.start() for w in workers]
 
     res = []  # 记录每一步的平均奖励
