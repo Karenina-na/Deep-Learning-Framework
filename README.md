@@ -37,6 +37,7 @@ conda create --name <env> --file requirements.yml
 
 - Data目录下为数据集
 - DataProcess为数据处理
+- doc为常用pytorch内容
 - Main目录下为任务主函数
 - Model_hub为预训练模型
 - Models下有常用神经网络代码块与神经网络实现
@@ -53,3 +54,6 @@ conda create --name <env> --file requirements.yml
 ## 证书
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+

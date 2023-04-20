@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import numpy as np
+import os
 
 from multiprocessing import Process, Queue
 
@@ -31,7 +32,7 @@ class SharedAdam(torch.optim.Adam):
 
 
 class Agent(nn.Module):
-    def __init__(self, s_dim: int, a_dim: int, GAMMA: float = 0.9):
+    def __init__(self, s_dim: int, a_dim: int, GAMMA: float = 0.9, model_path=None):
         super(Agent, self).__init__()
         self.s_dim = s_dim
         self.a_dim = a_dim
@@ -45,6 +46,16 @@ class Agent(nn.Module):
         # init
         set_init([self.pi1, self.pi2, self.v1, self.v2])
         self.distribution = torch.distributions.Categorical
+
+        self.model_path = model_path
+        if self.model_path is not None:
+            if os.path.exists(model_path + "/A3C.pth"):
+                self.load_state_dict(torch.load(model_path + "/A3C.pth"))
+                print("load model from {}".format(model_path + "/A3C.pth"))
+            else:
+                print("model not exists")
+        else:
+            print("no model to load")
 
     def forward(self, x: torch.Tensor):
         """
@@ -108,11 +119,14 @@ class Agent(nn.Module):
             critic_loss.append(F.smooth_l1_loss(values, returns))
             actor_loss.append(-log_prob * advantage)
 
-        # 总损失函数
-        total_loss = torch.stack(actor_loss).sum() + torch.stack(critic_loss).sum()
+        return torch.stack(actor_loss).sum(), torch.stack(critic_loss).sum()
 
-        return torch.stack(actor_loss).sum().detach().numpy(), torch.stack(
-            critic_loss).sum().detach().numpy(), total_loss
+    def save_model(self):
+        if self.model_path is not None:
+            torch.save(self.state_dict(), self.model_path + "/A3C.pth")
+            print("model saved to {}".format(self.model_path + "/A3C.pth"))
+        else:
+            print("no model to save")
 
 
 if __name__ == "__main__":

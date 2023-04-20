@@ -97,6 +97,7 @@ class Agent:
         self.mode = mode
         self.n_input = n_input
         self.n_output = n_output
+        self.model_path = model_path
 
         # 回报折扣率
         self.GAMMA = 0.99
@@ -130,9 +131,9 @@ class Agent:
             print("load model from {}".format(model_path + "/dqn.pth"))
 
     # 保存模型
-    def save_model(self, path):
+    def save_model(self):
         # 删除模型
-        if os.path.exists(path + "/dqn.pth"):
-            os.remove(path + "/dqn.pth")
+        if os.path.exists(self.model_path + "/dqn.pth"):
+            os.remove(self.model_path + "/dqn.pth")
         # 保存模型
-        torch.save(self.online_net.state_dict(), path + "/dqn.pth")
+        torch.save(self.online_net.state_dict(), self.model_path + "/dqn.pth")

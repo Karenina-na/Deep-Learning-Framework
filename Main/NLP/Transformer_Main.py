@@ -121,5 +121,13 @@ def test():
 
 
 if __name__ == "__main__":
-    train()
+    # train()
     # test()
+
+    from util.pytorch_vision.plot_calculation_graph import plot_calculation_graph
+
+    src_vocab_size = 100
+    tgt_vocab_size = 100
+    seq = torch.randint(0, 20, size=(1, 10))
+    model = Transformer(src_vocab_size, tgt_vocab_size, d_model, n_layers, d_ff, d_k, d_v, n_heads).to(device)
+    plot_calculation_graph(model, [seq, seq], "../../Result/images/tensorboard")
