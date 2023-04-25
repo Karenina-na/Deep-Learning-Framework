@@ -75,7 +75,8 @@ def detect(save_img=False):
             img = img.unsqueeze(0)
 
         # Warmup
-        if device.type != 'cpu' and (old_img_b != img.shape[0] or old_img_h != img.shape[2] or old_img_w != img.shape[3]):
+        if device.type != 'cpu' and (
+                old_img_b != img.shape[0] or old_img_h != img.shape[2] or old_img_w != img.shape[3]):
             old_img_b = img.shape[0]
             old_img_h = img.shape[2]
             old_img_w = img.shape[3]
@@ -84,7 +85,7 @@ def detect(save_img=False):
 
         # Inference
         t1 = time_synchronized()
-        with torch.no_grad():   # Calculating gradients would cause a GPU memory leak
+        with torch.no_grad():  # Calculating gradients would cause a GPU memory leak
             pred = model(img, augment=opt.augment)[0]
         t2 = time_synchronized()
 
@@ -158,13 +159,25 @@ def detect(save_img=False):
 
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
-        #print(f"Results saved to {save_dir}{s}")
+        # print(f"Results saved to {save_dir}{s}")
 
     print(f'Done. ({time.time() - t0:.3f}s)')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    """
+    if you meet this error:
+    tag = subprocess.check_output('git tag', shell=True).decode().split()[-1] IndexError: list index out of range
+    please download the pretrained model from
+    [`yolov7.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt) 
+    [`yolov7x.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt) 
+    [`yolov7-w6.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-w6.pt) 
+    [`yolov7-e6.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-e6.pt) 
+    [`yolov7-d6.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-d6.pt) 
+    [`yolov7-e6e.pt`](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-e6e.pt)
+    to the 
+    """
     parser.add_argument('--weights', nargs='+', type=str, default='yolov7.pt', help='model.pt path(s)')
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
@@ -185,7 +198,7 @@ if __name__ == '__main__':
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     opt = parser.parse_args()
     print(opt)
-    #check_requirements(exclude=('pycocotools', 'thop'))
+    # check_requirements(exclude=('pycocotools', 'thop'))
 
     with torch.no_grad():
         if opt.update:  # update all models (to fix SourceChangeWarning)
