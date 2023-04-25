@@ -1,12 +1,10 @@
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
-*.jpg
 *.jpeg
 *.png
 *.bmp
 *.tif
 *.tiff
 *.heic
-*.JPG
 *.JPEG
 *.PNG
 *.BMP
@@ -22,6 +20,7 @@
 *.cfg
 !setup.cfg
 !cfg/yolov3*.cfg
+!inference/images/**   # for example
 
 storage.googleapis.com
 runs/*
