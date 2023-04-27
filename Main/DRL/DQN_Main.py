@@ -62,7 +62,7 @@ def train():
             # 抽取经验
             batch_s, batch_a, batch_r, batch_done, batch_s_ = agent.memo.sample()  # update batch-size amounts of Q
 
-            # 计算 target Q(t+1)
+            # 计算 target Q(t+1) target网络
             target_q_values = agent.target_net(batch_s_)
 
             # 计算 target max Q(t+1)
@@ -71,7 +71,7 @@ def train():
             # 计算 target Q(t)
             targets = batch_r + agent.GAMMA * (1 - batch_done) * max_target_q_values
 
-            # 计算 online Q(t)
+            # 计算 online Q(t) online网络
             q_values = agent.online_net(batch_s)
 
             # 按照 batch_a 选择 Q(t) 中的动作 维度为行
