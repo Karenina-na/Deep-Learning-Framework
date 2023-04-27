@@ -81,25 +81,24 @@ class Agent(nn.Module):
         m = self.distribution(prob)
         return m.sample().numpy()[0]
 
-    def loss_func(self, state: torch.Tensor, actions: torch.Tensor, rewards: torch.Tensor):
+    def loss_func(self, state: torch.Tensor, actions: torch.Tensor, target: torch.Tensor):
         """
         计算损失函数
         :param state:   状态 [batch_size, state_dim]
         :param actions: 动作分布 [batch_size, action_dim]
-        :param rewards: 多步奖励 [batch_size, [reward1, reward2, ...]
+        :param target: target [batch_size, 1]
         :return: actor_loss, critic_loss
         """
         self.train()
-
         # 计算当前状态的价值
         logits, values = self.forward(state)
 
-        # 计算累计奖励
+        # 计算累计奖励    R = r + GAMMA * r + GAMMA^2 * r + ...
         returns = []
-        for i in range(len(rewards)):
+        for i in range(len(target)):
             Gt = 0  # 未来奖励
             pw = 0  # 未来奖励衰减权重
-            for r in rewards[i:]:
+            for r in target[i:]:
                 Gt = Gt + self.GAMMA ** pw * r
                 pw = pw + 1
             returns.append(Gt)
@@ -107,7 +106,7 @@ class Agent(nn.Module):
 
         # 计算 advantage
         advantages = []
-        for i in range(len(rewards)):
+        for i in range(len(target)):
             advantages.append(returns[i] - values[i])
 
         # 计算损失函数

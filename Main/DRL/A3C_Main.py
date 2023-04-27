@@ -100,8 +100,8 @@ def push_and_pull(optimizer: torch.optim, local_net: Agent, global_net: Agent, d
     else:
         value_next_state = local_net.forward(v_wrap(next_state[None, :]))[-1].data.numpy()[0, 0]
 
-    # 计算td误差
-    buffer_v_target = []  # 存储每一步的td误差
+    # 计算目标累计奖励 target = r + gamma * V(s')
+    buffer_v_target = []
     for reward in br[::-1]:
         value_next_state = reward + GAMMA * value_next_state
         buffer_v_target.append(value_next_state)
