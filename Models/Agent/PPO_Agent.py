@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
+import os
 
 
 # ----------------------------------- #
@@ -43,10 +44,11 @@ class ValueNet(nn.Module):
 # 构建模型
 # ----------------------------------- #
 
-class Agent:
+class Agent(nn.Module):
     def __init__(self, n_states, n_hiddens, n_actions,
                  actor_lr, critic_lr, lmbda, epochs,
-                 eps, gamma, device):
+                 eps, gamma, device, path=None):
+        super(Agent, self).__init__()
         # 实例化策略网络
         self.actor = PolicyNet(n_states, n_hiddens, n_actions).to(device)
         # 实例化价值网络
@@ -61,6 +63,24 @@ class Agent:
         self.epochs = epochs  # 一条序列的数据用来训练轮数
         self.eps = eps  # PPO中截断范围的参数
         self.device = device
+
+        # 模型加载与保存
+        self.model_path = path
+        if self.model_path is not None:
+            if os.path.exists(self.model_path + "/PPO.pth"):
+                self.load_state_dict(torch.load(self.model_path + "/PPO.pth"))
+                print("load model from {}".format(self.model_path + "/PPO.pth"))
+            else:
+                print("model not exists")
+        else:
+            print("no model to load")
+
+    def save_model(self):
+        if self.model_path is not None:
+            torch.save(self.state_dict(), self.model_path + "/PPO.pth")
+            print("model saved to {}".format(self.model_path + "/PPO.pth"))
+        else:
+            print("no model to save")
 
     # 动作选择
     def take_action(self, state):
