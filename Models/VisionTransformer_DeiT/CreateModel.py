@@ -1,4 +1,4 @@
-from Models.VisionTransformer.VisionTransformer import VisionTransformer
+from Models.VisionTransformer_DeiT.VisionTransformer import VisionTransformer
 
 
 def vit_base_patch16_224(num_classes: int = 1000):
