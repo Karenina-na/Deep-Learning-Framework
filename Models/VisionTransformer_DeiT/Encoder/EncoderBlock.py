@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 import torch
 import torch.nn as nn
-from Models.VisionTransformer.Encoder.EncoderModules import Attention, Mlp
+from Models.VisionTransformer_DeiT.Encoder.EncoderModules import Attention, Mlp
 
 
 class EncoderBlock(nn.Module):

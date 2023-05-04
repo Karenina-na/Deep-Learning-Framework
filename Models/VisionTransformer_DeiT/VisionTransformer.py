@@ -3,10 +3,10 @@ from collections import OrderedDict
 
 import torch
 import torch.nn as nn
-from Models.VisionTransformer.Encoder.EncoderBlock import EncoderBlock
-from Models.VisionTransformer.Modules.PatchEmbed import PatchEmbed
-from Models.VisionTransformer.Modules.DropPath import DropPath
-from Models.VisionTransformer.init_weight import _init_vit_weights
+from Models.VisionTransformer_DeiT.Encoder.EncoderBlock import EncoderBlock
+from Models.VisionTransformer_DeiT.Modules.PatchEmbed import PatchEmbed
+from Models.VisionTransformer_DeiT.Modules.DropPath import DropPath
+from Models.VisionTransformer_DeiT.init_weight import _init_vit_weights
 
 
 class VisionTransformer(nn.Module):
