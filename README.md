@@ -1,5 +1,5 @@
 # Deep-Learning-Framework
-Deep-Learning-Framework是一个深度学习项目架构，为本人自用。项目依赖Python3.9+和Pytorch。
+Deep-Learning-Framework是一个深度学习项目脚手架，包含多种网络实现，供学习使用。项目依赖Python3.9+和Pytorch。
 ## 特点
 
 - 提供了数据预处理、模型构建、训练和评估等工具和函数。
@@ -54,6 +54,3 @@ conda create --name <env> --file requirements.yml
 ## 证书
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-
-
