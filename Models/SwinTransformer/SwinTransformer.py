@@ -7,6 +7,7 @@ from typing import Optional
 from Models.SwinTransformer.Patch.PatchEmbed import PatchEmbed
 from Models.SwinTransformer.Patch.PatchMerging import PatchMerging
 from Models.SwinTransformer.LayerBlock.SwinLayer import BasicLayer
+from Models.SwinTransformer.init_weight import _init_weights
 
 
 class SwinTransformer(nn.Module):
@@ -77,16 +78,8 @@ class SwinTransformer(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool1d(1)
         self.head = nn.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
 
-        self.apply(self._init_weights)
+        self.apply(_init_weights)
 
-    def _init_weights(self, m):
-        if isinstance(m, nn.Linear):
-            nn.init.trunc_normal_(m.weight, std=.02)
-            if isinstance(m, nn.Linear) and m.bias is not None:
-                nn.init.constant_(m.bias, 0)
-        elif isinstance(m, nn.LayerNorm):
-            nn.init.constant_(m.bias, 0)
-            nn.init.constant_(m.weight, 1.0)
 
     def forward(self, x):
         # x: [B, L, C]
