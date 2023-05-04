@@ -4,7 +4,7 @@ from torch import nn
 
 class SE(nn.Module):
     # ratio代表第一个全连接下降通道的倍数
-    def __init__(self, in_channel, ratio=4):
+    def __init__(self, in_channel, ratio=4, function=nn.Sigmoid):
         super().__init__()
 
         # 全局平均池化，输出的特征图的宽高=1
@@ -20,7 +20,7 @@ class SE(nn.Module):
         self.fc2 = nn.Linear(in_features=in_channel // ratio, out_features=in_channel, bias=False)
 
         # sigmoid激活函数，将权值归一化到0-1
-        self.sigmoid = nn.Sigmoid()
+        self.sigmoid = function
 
     # 前向传播
     def forward(self, inputs):  # inputs 代表输入特征图
