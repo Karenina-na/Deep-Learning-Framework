@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from Models.ConvNeXt.Module.ConvNeXtBlock import ConvNeXtBlock
 from Models.ConvNeXt.Module.LayerNorm import LayerNorm
+from Models.ConvNeXt.init_weights import _init_weights
 
 
 class ConvNeXt(nn.Module):
@@ -46,14 +47,9 @@ class ConvNeXt(nn.Module):
 
         self.norm = nn.LayerNorm(dims[-1], eps=1e-6)  # final norm layer
         self.head = nn.Linear(dims[-1], num_classes)
-        self.apply(self._init_weights)
+        self.apply(_init_weights)
         self.head.weight.data.mul_(head_init_scale)
         self.head.bias.data.mul_(head_init_scale)
-
-    def _init_weights(self, m):
-        if isinstance(m, (nn.Conv2d, nn.Linear)):
-            nn.init.trunc_normal_(m.weight, std=0.2)
-            nn.init.constant_(m.bias, 0)
 
     def forward_features(self, x: torch.Tensor) -> torch.Tensor:
         for i in range(4):
