@@ -3,7 +3,7 @@ Deep-Learning-Framework是一个深度学习项目脚手架，包含多种网络
 ## 特点
 
 - 提供了数据预处理、模型构建、训练和评估等工具和函数。
-- 项目分层，有常用CNN、GAN、A3C、transformer等算法和相应神经网络结构。
+- 项目分层，有常用ViT、DCGAN、A3C、Transformer等算法和相应神经网络结构。
 
 
 ## 安装
