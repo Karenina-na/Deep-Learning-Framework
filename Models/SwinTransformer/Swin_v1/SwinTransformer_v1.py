@@ -6,7 +6,7 @@ from Models.SwinTransformer.Swin_v1.LayerBlock.SwinLayer import BasicLayer
 from Models.SwinTransformer.Swin_v1.init_weight import _init_weights
 
 
-class SwinTransformer(nn.Module):
+class SwinTransformer_v1(nn.Module):
     r""" Swin Transformer
     Args:
         patch_size (int | tuple(int)): Patch size. Default: 4
@@ -93,13 +93,13 @@ class SwinTransformer(nn.Module):
 
 
 if __name__ == "__main__":
-    model = SwinTransformer(in_chans=3,
-                            patch_size=4,
-                            window_size=7,
-                            embed_dim=96,
-                            depths=(2, 2, 6, 2),
-                            num_heads=(3, 6, 12, 24),
-                            num_classes=7)
+    model = SwinTransformer_v1(in_chans=3,
+                               patch_size=4,
+                               window_size=7,
+                               embed_dim=96,
+                               depths=(2, 2, 6, 2),
+                               num_heads=(3, 6, 12, 24),
+                               num_classes=7)
     x = torch.randn(2, 3, 224, 224)
     y = model(x)
     print(y.shape)
