@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from Models.Block.SEBlock_2d import SE
+from Models.MobileNet.Block.SEBlock_2d import SE
 from Models.MobileNet.Block.InvertedResidualConvSE_2d import Hsigmoid,Hswish, Bottleneck
 
 
