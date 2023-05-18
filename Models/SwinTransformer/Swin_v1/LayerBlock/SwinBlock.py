@@ -1,13 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.utils.checkpoint as checkpoint
-import numpy as np
-from typing import Optional
-from Models.SwinTransformer.LayerBlock.SwinModule.DropPath import DropPath
-from Models.SwinTransformer.LayerBlock.SwinModule.Mlp import Mlp
-from Models.SwinTransformer.LayerBlock.SwinModule.WindowAttention import WindowAttention
-from Models.SwinTransformer.LayerBlock.SwinModule.WindowUtil import window_partition, window_reverse
+from Models.SwinTransformer.Swin_v1.LayerBlock.SwinModule.DropPath import DropPath
+from Models.SwinTransformer.Swin_v1.LayerBlock.SwinModule.Mlp import Mlp
+from Models.SwinTransformer.Swin_v1.LayerBlock.SwinModule.WindowAttention import WindowAttention
+from Models.SwinTransformer.Swin_v1.LayerBlock.SwinModule.WindowUtil import window_partition, window_reverse
 
 
 class SwinTransformerBlock(nn.Module):

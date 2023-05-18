@@ -1,4 +1,4 @@
-from Models.SwinTransformer.SwinTransformer import SwinTransformer
+from Models.SwinTransformer.Swin_v1.SwinTransformer import SwinTransformer
 
 
 def swin_tiny_patch4_window7_224(num_classes: int = 1000, **kwargs):
