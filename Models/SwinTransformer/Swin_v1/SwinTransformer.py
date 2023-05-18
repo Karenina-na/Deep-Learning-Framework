@@ -1,13 +1,9 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.utils.checkpoint as checkpoint
-import numpy as np
-from typing import Optional
-from Models.SwinTransformer.Patch.PatchEmbed import PatchEmbed
-from Models.SwinTransformer.Patch.PatchMerging import PatchMerging
-from Models.SwinTransformer.LayerBlock.SwinLayer import BasicLayer
-from Models.SwinTransformer.init_weight import _init_weights
+from Models.SwinTransformer.Swin_v1.Patch.PatchEmbed import PatchEmbed
+from Models.SwinTransformer.Swin_v1.Patch.PatchMerging import PatchMerging
+from Models.SwinTransformer.Swin_v1.LayerBlock.SwinLayer import BasicLayer
+from Models.SwinTransformer.Swin_v1.init_weight import _init_weights
 
 
 class SwinTransformer(nn.Module):
