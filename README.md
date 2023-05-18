@@ -1,32 +1,41 @@
-# 🤖 深度学习代码复现库
+# 🤖 Deep-Learning-Framework
 
-这是一个致力于将深度学习领域的经典论文代码进行复现或简化的项目。项目中包含多种网络实现，供学习使用。项目依赖Python3.9+和Pytorch。
-通过这个项目，科研小白可以更好地理解深度学习模型的核心代码结构，并且也可以使用这些代码进行模型构建工作。
+This is a project dedicated to reproducing or simplifying the code of classic papers in the field of deep learning. 
+The project encompasses various network implementations for learning purposes. The project relies on Python 3.9+ and PyTorch.
+Through this endeavor, novice researchers can gain a more profound comprehension of the fundamental code structure underlying deep learning models. Furthermore, they can utilize this code to facilitate their own model construction tasks.
 
 ## 📚 项目介绍
 
-本项目旨在为深度学习爱好者提供一个学习和交流的平台，通过复现经典的深度学习论文代码，来加深对深度学习模型的理解和掌握。我们主要包括以下几个部分：
+The primary objective of this project is to provide a platform for deep learning enthusiasts to learn and engage in discussions. By reproducing the code of classical papers in the field of deep learning, we aim to deepen the understanding and mastery of deep learning models. Our project mainly comprises the following components:
 
-- 深度学习模型的论文代码复现
-- 模型的简化版本
-- 相关的数据集和预训练模型
-- 模型的训练和测试脚本
+- Reproduction of code from deep learning model papers
+- Reproduction of code from deep learning model papers
+- Relevant datasets and pre-trained models
+- Relevant datasets and pre-trained models
 
-我们会根据深度学习领域的最新论文和热门模型，持续更新本项目，为大家提供更多有价值的代码和学习资源。
+We shall continuously update this project in accordance with the latest research papers and trending models in the field of deep learning, thereby providing valuable code and learning resources to all.
 
 ## 🚀 如何使用
 
-我们的代码库支持直接下载和使用，但我们推荐使用 `git clone` 命令将整个代码库克隆到本地，以便您更好地管理和更新代码。具体使用方法如下：
+Our code repository supports direct downloading and usage, but we recommend using the `git clone` command to clone the entire code repository to your local machine for better code management and updates. Here are the specific instructions:
+
+1.Open your terminal or command prompt.
+
+2.Navigate to the directory where you want to clone the code repository.
+
+3.Run the following command:
 
 ```bash
 $ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
 ```
 
-在克隆代码库之后，您可以通过 `cd` 命令进入到具体模型的文件夹中，然后运行对应的训练或测试脚本即可。我们在每个模型文件夹中都提供了相应的说明文档，以帮助您更好地使用该模型。
+4.Wait for the cloning process to complete. Once finished, you will have a local copy of the code repository on your machine.
+
+5.After cloning the code repository, you can use the `cd` command to navigate to the specific folder of the model and then execute the corresponding training or testing script. We provide accompanying documentation in each model folder to assist you in utilizing the model effectively.
 
 ## 💻 技术栈
 
-我们在项目中使用了很多深度学习框架和相关的库，以下是我们主要使用的技术栈：
+In our project, we have utilized a variety of deep learning frameworks and related libraries. Here is our primary technology stack:
 
 - PyTorch
 - Numpy
@@ -35,16 +44,16 @@ $ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
 
 ## 🤝 如何贡献
 
-我们非常欢迎您为我们的项目做出贡献！如果您有任何好的模型或论文代码想要分享，或者发现了代码中的错误或不足之处，都可以通过以下方式向我们提交贡献：
+We greatly appreciate your willingness to contribute to our project! If you have any valuable models or paper codes to share, or if you have identified any errors or areas for improvement within the codebase, you can submit your contributions through the following methods:
 
-1. Fork 本项目
-2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 将您的分支推送到远程仓库 (`git push origin feature/AmazingFeature`)
-5. 提交拉取请求
+1. Contribute to this endeavor, `Fork` the present undertaking.
+2. Establish your distinctive branch of characteristics. (`git checkout -b feature/AmazingFeature`)
+3. Submit your modifications forthwith. (`git commit -m 'Add some AmazingFeature'`)
+4. Propagate your branch to the remote repository with due diligence. (`git push origin feature/AmazingFeature`)
+5. Submit a formal pull request for consideration.
 
-我们会及时审核您的贡献，并将其合并到我们的项目中。同时，我们也非常感谢您对本项目的支持和关注！
+We shall diligently review your contribution and incorporate it into our project in a timely manner. Additionally, we extend our heartfelt gratitude for your support and interest in this endeavor!
 
 ## 📝 许可证
 
-本项目采用 MIT 许可证，详情请参阅 [MIT](https://choosealicense.com/licenses/mit/) 文件。
+This undertaking adheres to the MIT License, and for further details, kindly refer to the [MIT](https://choosealicense.com/licenses/mit/) document.
