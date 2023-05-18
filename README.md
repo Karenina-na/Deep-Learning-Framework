@@ -4,7 +4,7 @@ This is a project dedicated to reproducing or simplifying the code of classic pa
 The project encompasses various network implementations for learning purposes. The project relies on Python 3.9+ and PyTorch.
 Through this endeavor, novice researchers can gain a more profound comprehension of the fundamental code structure underlying deep learning models. Furthermore, they can utilize this code to facilitate their own model construction tasks.
 
-## 📚 项目介绍
+## 📚 Introduction
 
 The primary objective of this project is to provide a platform for deep learning enthusiasts to learn and engage in discussions. By reproducing the code of classical papers in the field of deep learning, we aim to deepen the understanding and mastery of deep learning models. Our project mainly comprises the following components:
 
@@ -15,7 +15,7 @@ The primary objective of this project is to provide a platform for deep learning
 
 We shall continuously update this project in accordance with the latest research papers and trending models in the field of deep learning, thereby providing valuable code and learning resources to all.
 
-## 🚀 如何使用
+## 🚀 How to Use
 
 Our code repository supports direct downloading and usage, but we recommend using the `git clone` command to clone the entire code repository to your local machine for better code management and updates. Here are the specific instructions:
 
@@ -33,7 +33,7 @@ $ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
 
 5.After cloning the code repository, you can use the `cd` command to navigate to the specific folder of the model and then execute the corresponding training or testing script. We provide accompanying documentation in each model folder to assist you in utilizing the model effectively.
 
-## 💻 技术栈
+## 💻 Technology Stack
 
 In our project, we have utilized a variety of deep learning frameworks and related libraries. Here is our primary technology stack:
 
@@ -42,7 +42,7 @@ In our project, we have utilized a variety of deep learning frameworks and relat
 - Pandas
 - Matplotlib
 
-## 🤝 如何贡献
+## 🤝 Contribution Guide
 
 We greatly appreciate your willingness to contribute to our project! If you have any valuable models or paper codes to share, or if you have identified any errors or areas for improvement within the codebase, you can submit your contributions through the following methods:
 
@@ -54,6 +54,6 @@ We greatly appreciate your willingness to contribute to our project! If you have
 
 We shall diligently review your contribution and incorporate it into our project in a timely manner. Additionally, we extend our heartfelt gratitude for your support and interest in this endeavor!
 
-## 📝 许可证
+## 📝 License
 
 This undertaking adheres to the MIT License, and for further details, kindly refer to the [MIT](https://choosealicense.com/licenses/mit/) document.
