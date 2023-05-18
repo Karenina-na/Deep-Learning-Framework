@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
-import torchvision
-from Models.Block.DeepwiseSeparableConv_2d import BottleneckV1
+from Models.MobileNet.Block.DeepwiseSeparableConv_2d import BottleneckV1
 
 
 class MobileNetV1(nn.Module):

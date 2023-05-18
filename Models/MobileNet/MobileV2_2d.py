@@ -1,6 +1,6 @@
 from torch import nn
 import torch
-from Models.Block.InvertedResidualConv_2d import InvertedResidual, ConvBNReLU
+from Models.MobileNet.Block.InvertedResidualConv_2d import InvertedResidual, ConvBNReLU
 
 
 def _make_divisible(ch, divisor=8, min_ch=None):

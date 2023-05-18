@@ -1,5 +1,5 @@
 import torch
-from Models.Block.ResBlock_2conv_1d import ResBlock
+from Models.ResNet.Block.ResBlock_2conv_1d import ResBlock
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
