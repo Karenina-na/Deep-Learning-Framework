@@ -1,56 +1,50 @@
-# Deep-Learning-Framework
-Deep-Learning-Framework是一个深度学习项目脚手架，包含多种网络实现，供学习使用。项目依赖Python3.9+和Pytorch。
-## 特点
+# 🤖 深度学习代码复现库
 
-- 提供了数据预处理、模型构建、训练和评估等工具和函数。
-- 项目分层，有常用ViT、DCGAN、A3C、Transformer等算法和相应神经网络结构。
+这是一个致力于将深度学习领域的经典论文代码进行复现或简化的项目。项目中包含多种网络实现，供学习使用。项目依赖Python3.9+和Pytorch。
+通过这个项目，科研小白可以更好地理解深度学习模型的核心代码结构，并且也可以使用这些代码进行模型构建工作。
 
+## 📚 项目介绍
 
-## 安装
+本项目旨在为深度学习爱好者提供一个学习和交流的平台，通过复现经典的深度学习论文代码，来加深对深度学习模型的理解和掌握。我们主要包括以下几个部分：
 
-克隆项目
+- 深度学习模型的论文代码复现
+- 模型的简化版本
+- 相关的数据集和预训练模型
+- 模型的训练和测试脚本
+
+我们会根据深度学习领域的最新论文和热门模型，持续更新本项目，为大家提供更多有价值的代码和学习资源。
+
+## 🚀 如何使用
+
+我们的代码库支持直接下载和使用，但我们推荐使用 `git clone` 命令将整个代码库克隆到本地，以便您更好地管理和更新代码。具体使用方法如下：
 
 ```bash
-git clone
+$ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
 ```
 
-安装依赖 for pip
+在克隆代码库之后，您可以通过 `cd` 命令进入到具体模型的文件夹中，然后运行对应的训练或测试脚本即可。我们在每个模型文件夹中都提供了相应的说明文档，以帮助您更好地使用该模型。
 
-```shell
-pip install -r requirements.txt
-```
+## 💻 技术栈
 
-安装依赖 for conda
+我们在项目中使用了很多深度学习框架和相关的库，以下是我们主要使用的技术栈：
 
-```shell
-conda install --file requirements.txt
-```
+- PyTorch
+- Numpy
+- Pandas
+- Matplotlib
 
-创建环境 for conda
+## 🤝 如何贡献
 
-```shell
-conda create --name <env> --file requirements.yml
-```
+我们非常欢迎您为我们的项目做出贡献！如果您有任何好的模型或论文代码想要分享，或者发现了代码中的错误或不足之处，都可以通过以下方式向我们提交贡献：
 
+1. Fork 本项目
+2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 将您的分支推送到远程仓库 (`git push origin feature/AmazingFeature`)
+5. 提交拉取请求
 
-## 使用方法
+我们会及时审核您的贡献，并将其合并到我们的项目中。同时，我们也非常感谢您对本项目的支持和关注！
 
-- Data目录下为数据集
-- DataProcess为数据处理
-- doc为常用pytorch内容
-- Main目录下为任务主函数
-- Model_hub为预训练模型
-- Models下有常用神经网络代码块与神经网络实现
-- Result放置深度学习结果
-- test为测试文件夹
-- util为工具类函数
+## 📝 许可证
 
-
-## 作者
-
-- [Karenina-na](https://github.com/Karenina-na)
-
-
-## 证书
-
-[MIT](https://choosealicense.com/licenses/mit/)
+本项目采用 MIT 许可证，详情请参阅 [MIT](https://choosealicense.com/licenses/mit/) 文件。

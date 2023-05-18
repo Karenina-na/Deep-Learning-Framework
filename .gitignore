@@ -167,6 +167,3 @@ Data/**
 !Data/translate_chinese_to_english_simple/*.txt
 /Result/checkpoints/**
 /Result/images/**
-
-!/Models/Yolo/Yolo v5/data/images/
-!/Models/Yolo/Yolo v7/inference/images/
