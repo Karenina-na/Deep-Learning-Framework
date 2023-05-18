@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from Models.Block.SEBlock_2d import SE
+from Models.MobileNet.Block.SEBlock_2d import SE
 
 
 def Hswish(x, inplace=True):
