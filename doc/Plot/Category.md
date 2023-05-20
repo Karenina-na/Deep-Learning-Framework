@@ -326,24 +326,24 @@ This module provides you with a collection of the top 50 Matplotlib visualizatio
 
 #### Dendrogram
 
-<a href="./Dendrogram" target="_blank">
+<a href="./Groups" target="_blank">
 <img width="60%" src="./img/树状图.png">
 </a>
 
 #### Cluster Plot
 
-<a href="./Dendrogram" target="_blank">
+<a href="./Groups" target="_blank">
 <img width="60%" src="./img/簇状图.png">
 </a>
 
 #### Andrews Curve
 
-<a href="./Dendrogram" target="_blank">
+<a href="./Groups" target="_blank">
 <img width="60%" src="./img/安德鲁斯曲线.png">
 </a>
 
 #### Parallel Coordinates
 
-<a href="./Dendrogram" target="_blank">
+<a href="./Groups" target="_blank">
 <img width="60%" src="./img/平行坐标.png">
 </a>
