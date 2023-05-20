@@ -13,6 +13,19 @@ The primary objective of this project is to provide a platform for deep learning
 - Relevant datasets and pre-trained models
 - Relevant datasets and pre-trained models
 - Tools, codes, and illustrations commonly employed in academic paper composition.
+- 示例:
+
+<div>
+    <img src="./Models/VisionTransformer_DeiT/doc/ViT_model.png" width="45%">
+    <img src="./Models/SwinTransformer/Swin_v1/doc/shifted_window.png" width="31%">
+</div>
+
+<div>
+    <img src="./doc/Plot/img/包点+箱形图.png" width="34%">
+    <img src="./doc/Plot/img/带边界的气泡图.png" width="42%">
+</div>
+
+#### [Click here to see the plot examples](./doc/Plot/README.md)
 
 We shall continuously update this project in accordance with the latest research papers and trending models in the field of deep learning, thereby providing valuable code and learning resources to all.
 
