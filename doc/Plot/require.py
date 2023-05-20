@@ -1,7 +1,4 @@
 # 导入依赖
-
-# https://www.machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python
-
 import warnings
 
 import matplotlib as mpl
@@ -12,6 +9,7 @@ import pandas as pd
 import seaborn as sns
 
 warnings.filterwarnings(action='once')
+plt.rcParams['figure.facecolor'] = 'white'
 
 large = 22
 medium = 16
@@ -24,6 +22,7 @@ params = {'axes.titlesize': large,
           'ytick.labelsize': medium,
           'figure.titlesize': large}
 plt.rcParams.update(params)
+
 plt.style.use('seaborn-whitegrid')
 sns.set_style("white")
 
