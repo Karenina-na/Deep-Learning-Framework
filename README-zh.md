@@ -12,6 +12,19 @@
 - 相关的数据集和预训练模型
 - 模型的训练和测试脚本
 - 常用论文写作画图工具代码和样例
+- 示例:
+
+<div>
+    <img src="./Models/VisionTransformer_DeiT/doc/ViT_model.png" width="45%">
+    <img src="./Models/SwinTransformer/Swin_v1/doc/shifted_window.png" width="31%">
+</div>
+
+<div>
+    <img src="./doc/Plot/img/包点+箱形图.png" width="34%">
+    <img src="./doc/Plot/img/带边界的气泡图.png" width="42%">
+</div>
+
+#### [点击这里查案画图示例库](./doc/Plot/README.md)
 
 我们会根据深度学习领域的最新论文和热门模型，持续更新本项目，为大家提供更多有价值的代码和学习资源。
 
