@@ -12,6 +12,7 @@ The primary objective of this project is to provide a platform for deep learning
 - Reproduction of code from deep learning model papers
 - Relevant datasets and pre-trained models
 - Relevant datasets and pre-trained models
+- Tools, codes, and illustrations commonly employed in academic paper composition.
 
 We shall continuously update this project in accordance with the latest research papers and trending models in the field of deep learning, thereby providing valuable code and learning resources to all.
 
