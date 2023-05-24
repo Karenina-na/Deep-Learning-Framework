@@ -9,14 +9,12 @@ def print_start_train():
 
 
 # 批次损失
-def print_batch_loss(step, loss_sum, evaluation_name, evaluation):
+def print_batch_loss(step, loss):
     """
     :param step: 当前批次
-    :param loss_sum: 当前批次损失
-    :param evaluation_name: "accuracy" or "f1"
-    :param evaluation: 当前批次评估值
+    :param loss: 当前批次损失
     """
-    print(("[step = %d] loss: %.3f, " + evaluation_name + ": %.3f") % (step, loss_sum / step, evaluation / step))
+    print("[step = %d] loss: %.3f, " % (step, loss))
 
 
 # epoch 损失
@@ -32,6 +30,17 @@ def print_epoch_loss(evaluation, evaluation_name):
     print("\n" + "==========" * 8 + "%s" % now_time)
 
 
+def print_test_loss(evaluation, evaluation_name):
+    """
+    :param evaluation: (loss_sum, evaluation)
+    :param evaluation_name: "accuracy" or "f1"
+    """
+    print(("\nTEST: loss = %.3f, " + evaluation_name + " = %.3f")
+          % evaluation)
+    now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print("\n" + "==========" * 8 + "%s" % now_time)
+
+
 # 结束训练
 def print_end_train():
     print('Finished Training...')
@@ -40,5 +49,6 @@ def print_end_train():
 if __name__ == '__main__':
     print_start_train()
     print_batch_loss(1, 2, "accuracy", 3)
+    print_batch_loss(2, 3, "accuracy", 3)
     print_epoch_loss((1, 2, 3, 4, 5), "accuracy")
     print_end_train()
