@@ -1,4 +1,4 @@
-# Code with Paper
+# Paper with Code
 
 ## 1. Introduction
 
