@@ -9,11 +9,11 @@ Through this endeavor, novice researchers can gain a more profound comprehension
 The primary objective of this project is to provide a platform for deep learning enthusiasts to learn and engage in discussions. By reproducing the code of classical papers in the field of deep learning, we aim to deepen the understanding and mastery of deep learning models. Our project mainly comprises the following components:
 
 - Reproduction of code from deep learning model papers
-- Reproduction of code from deep learning model papers
+- A simplified version of the model.
 - Relevant datasets and pre-trained models
-- Relevant datasets and pre-trained models
+- The training and testing scripts of the model prototype.
 - Tools, codes, and illustrations commonly employed in academic paper composition.
-- 示例:
+- example:
 
 <div>
     <img src="./Models/VisionTransformer_DeiT/doc/ViT_model.png" width="45%">
