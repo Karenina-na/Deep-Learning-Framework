@@ -47,9 +47,10 @@ This Markdown file is used to record the code of the paper I read.
 | Transformer |          [Attention Is All You Need](https://arxiv.org/abs/1706.03762)          | [code](./Models/Transformer) |
 
 ### Time Series Classification
-| Model    |                                                Paper                                                 |           Code            |
-|----------|:----------------------------------------------------------------------------------------------------:|:-------------------------:|
-| LSTM-FCN | [LSTM Fully Convolutional Networks for Time Series Classification](https://arxiv.org/abs/1709.05206) | [code](./Models/LSTM-FCN) |
+| Model                 |                                                Paper                                                 |            Code            |
+|-----------------------|:----------------------------------------------------------------------------------------------------:|:--------------------------:|
+| LSTM-FCN              | [LSTM Fully Convolutional Networks for Time Series Classification](https://arxiv.org/abs/1709.05206) | [code](./Models/LSTM-FCN)  |
+| Multivariate LSTM-FCN |    [Multilevel Feature Learning for Time Series Classification](https://arxiv.org/abs/1801.04503)    | [code](./Models/MLSTM-FCN) |
 
 ### Deep Reinforcement Learning
 | Model      |                                          Paper                                           |                Agent                 |              Main               |
