@@ -40,12 +40,16 @@ This Markdown file is used to record the code of the paper I read.
 | YOLO 7 | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696) | [code](./Models/Yolo/Yolo%20v7) |
 | YOLO 8 |                                           [[website]](https://docs.ultralytics.com/)                                           | [code](./Models/Yolo/Yolo%20v8) |
 
-### Natural Language Processing
+### Natural Language Processing Backbones
 | Model       |                                      Paper                                      |             Code             |
 |-------------|:-------------------------------------------------------------------------------:|:----------------------------:|
 | LSTM        | [Long Short-Term Memory](https://www.bioinf.jku.at/publications/older/2604.pdf) |    [code](./Models/LSTM)     |
 | Transformer |          [Attention Is All You Need](https://arxiv.org/abs/1706.03762)          | [code](./Models/Transformer) |
 
+### Time Series Classification
+| Model    |                                                Paper                                                 |           Code            |
+|----------|:----------------------------------------------------------------------------------------------------:|:-------------------------:|
+| LSTM-FCN | [LSTM Fully Convolutional Networks for Time Series Classification](https://arxiv.org/abs/1709.05206) | [code](./Models/LSTM-FCN) |
 
 ### Deep Reinforcement Learning
 | Model      |                                          Paper                                           |                Agent                 |              Main               |
