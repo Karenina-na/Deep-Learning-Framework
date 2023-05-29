@@ -30,6 +30,7 @@ def print_epoch_loss(evaluation, evaluation_name):
     print("\n" + "==========" * 8 + "%s" % now_time)
 
 
+# 测试损失
 def print_test_loss(evaluation, evaluation_name):
     """
     :param evaluation: (loss_sum, evaluation)
@@ -39,6 +40,20 @@ def print_test_loss(evaluation, evaluation_name):
           % evaluation)
     now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print("\n" + "==========" * 8 + "%s" % now_time)
+
+
+# grid search
+def print_grid_search_result(best_params, best_acc):
+    """
+    :param best_params: dict
+    :param best_acc: float
+    """
+    print("Grid Search Result:")
+    print("Best params: ", best_params)
+    print("Best acc: ", best_acc)
+    now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print("\n" + "==========" * 8 + "%s" % now_time)
+
 
 
 # 结束训练
