@@ -35,19 +35,21 @@ This Markdown file is used to record the code of the paper I read.
 | DCGAN | [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/abs/1511.06434) | [code](./Models/DCGAN) |
 
 ### Object Detection
-| Model  |                                                             Paper                                                              |              Code               |
-|--------|:------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------:|
-| R-CNN  |      [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)       |             [None]              |
-| YOLO 5 |                            [YOLOX: Exceeding YOLO Series in 2021](https://arxiv.org/abs/2107.08430)                            | [code](./Models/Yolo/Yolo%20v5) |
-| YOLO 7 | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696) | [code](./Models/Yolo/Yolo%20v7) |
-| YOLO 8 |                                           [[website]](https://docs.ultralytics.com/)                                           | [code](./Models/Yolo/Yolo%20v8) |
+| Model      |                                                             Paper                                                              |              Code               |
+|------------|:------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------:|
+| R-CNN      |      [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)       |             [None]              |
+| Fast R-CNN |                                         [Fast R-CNN](https://arxiv.org/abs/1504.08083)                                         |  [code](./Models/Fast%20R-CNN)  |
+| YOLO 5     |                            [YOLOX: Exceeding YOLO Series in 2021](https://arxiv.org/abs/2107.08430)                            | [code](./Models/Yolo/Yolo%20v5) |
+| YOLO 7     | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696) | [code](./Models/Yolo/Yolo%20v7) |
+| YOLO 8     |                                           [[website]](https://docs.ultralytics.com/)                                           | [code](./Models/Yolo/Yolo%20v8) |
 
 ### Computer Vision Modules
-| Model                  |                                               Paper                                               |                  Code                  |
-|------------------------|:-------------------------------------------------------------------------------------------------:|:--------------------------------------:|
-| Squeeze-and-Excitation |                [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)                |  [code](./Models/Block/SEBlock_2d.py)  |
-| Selective Kernel       |                   [Selective Kernel Networks](https://arxiv.org/abs/1903.06586)                   |  [code](./Models/Block/SKBlock_2d.py)  |
-| DropBlock              | [DropBlock: A regularization method for convolutional networks](https://arxiv.org/abs/1810.12890) | [code](./Models/Block/DropBlock_2d.py) |
+| Model                   |                                                      Paper                                                       |                  Code                  |
+|-------------------------|:----------------------------------------------------------------------------------------------------------------:|:--------------------------------------:|
+| Squeeze-and-Excitation  |                       [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)                        |  [code](./Models/Block/SEBlock_2d.py)  |
+| Selective Kernel        |                          [Selective Kernel Networks](https://arxiv.org/abs/1903.06586)                           |  [code](./Models/Block/SKBlock_2d.py)  |
+| DropBlock               |        [DropBlock: A regularization method for convolutional networks](https://arxiv.org/abs/1810.12890)         | [code](./Models/Block/DropBlock_2d.py) |
+| Spatial Pyramid Pooling | [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729) |                 [None]                 |
 
 ### Natural Language Processing Backbones
 | Model       |                                                  Paper                                                   |             Code             |
