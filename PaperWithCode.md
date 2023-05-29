@@ -26,6 +26,7 @@ This Markdown file is used to record the code of the paper I read.
 | Mobile Vision Transformer v1 |                  [MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer](https://arxiv.org/abs/2110.02178)                   |    [code](./Models/MobileViT/MobileViT_v1)     |
 | Mobile Vision Transformer v2 |                               [Separable Self-attention for Mobile Vision Transformers](https://arxiv.org/abs/2206.02680)                               |    [code](./Models/MobileViT/MobileViT_v2)     |
 | Mobile Vision Transformer v3 | [MobileViTv3: Mobile-Friendly Vision Transformer with Simple and Effective Fusion of Local, Global and Input Features](http://arxiv.org/abs/2209.15159) |    [code](./Models/MobileViT/MobileViT_v3)     |
+| FasterNet                    |                          [Run, Don't Walk: Chasing Higher FLOPS for Faster Neural Networks](https://arxiv.org/abs/2303.03667)                           |           [code](./Models/FasterNet)           |
 
 ### Image Generation
 | Model |                                                              Paper                                                               |          Code          |
@@ -36,15 +37,24 @@ This Markdown file is used to record the code of the paper I read.
 ### Object Detection
 | Model  |                                                             Paper                                                              |              Code               |
 |--------|:------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------:|
+| R-CNN  |      [Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/abs/1311.2524)       |             [None]              |
 | YOLO 5 |                            [YOLOX: Exceeding YOLO Series in 2021](https://arxiv.org/abs/2107.08430)                            | [code](./Models/Yolo/Yolo%20v5) |
 | YOLO 7 | [YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors](https://arxiv.org/abs/2207.02696) | [code](./Models/Yolo/Yolo%20v7) |
 | YOLO 8 |                                           [[website]](https://docs.ultralytics.com/)                                           | [code](./Models/Yolo/Yolo%20v8) |
 
+### Computer Vision Modules
+| Model                  |                                               Paper                                               |                  Code                  |
+|------------------------|:-------------------------------------------------------------------------------------------------:|:--------------------------------------:|
+| Squeeze-and-Excitation |                [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)                |  [code](./Models/Block/SEBlock_2d.py)  |
+| Selective Kernel       |                   [Selective Kernel Networks](https://arxiv.org/abs/1903.06586)                   |  [code](./Models/Block/SKBlock_2d.py)  |
+| DropBlock              | [DropBlock: A regularization method for convolutional networks](https://arxiv.org/abs/1810.12890) | [code](./Models/Block/DropBlock_2d.py) |
+
 ### Natural Language Processing Backbones
-| Model       |                                      Paper                                      |             Code             |
-|-------------|:-------------------------------------------------------------------------------:|:----------------------------:|
-| LSTM        | [Long Short-Term Memory](https://www.bioinf.jku.at/publications/older/2604.pdf) |    [code](./Models/LSTM)     |
-| Transformer |          [Attention Is All You Need](https://arxiv.org/abs/1706.03762)          | [code](./Models/Transformer) |
+| Model       |                                                  Paper                                                   |             Code             |
+|-------------|:--------------------------------------------------------------------------------------------------------:|:----------------------------:|
+| RNN         | [A Critical Review of Recurrent Neural Networks for Sequence Learning](https://arxiv.org/abs/1506.00019) |            [None]            |
+| LSTM        |             [Long Short-Term Memory](https://www.bioinf.jku.at/publications/older/2604.pdf)              |    [code](./Models/LSTM)     |
+| Transformer |                      [Attention Is All You Need](https://arxiv.org/abs/1706.03762)                       | [code](./Models/Transformer) |
 
 ### Time Series Classification
 | Model                 |                                                Paper                                                 |            Code            |
