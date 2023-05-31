@@ -242,6 +242,12 @@ This module provides you with a collection of the top 50 Matplotlib visualizatio
 <img width="60%" src="./img/条形图.png">
 </a>
 
+#### Aggregate bar chart
+
+<a href="./Composition" target="_blank">
+<img width="60%" src="./img/聚合条形图.png">
+</a>
+
 ### Change
 
 ---
