@@ -1,6 +1,7 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+from sklearn.metrics import average_precision_score
+from sklearn.metrics import precision_recall_curve
+from sklearn.preprocessing import label_binarize
 
 
 # 绘制PR曲线
