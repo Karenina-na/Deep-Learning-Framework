@@ -2,6 +2,7 @@ from sklearn.metrics import roc_curve, auc
 from scipy import interp
 from itertools import cycle
 from sklearn.preprocessing import label_binarize
+from matplotlib import pyplot as plt
 
 
 # 画ROC_AUC曲线
@@ -13,6 +14,7 @@ def ROC_AUC(test, output_prob, classes):
     :param classes:     类别
     :return:
     """
+    lw=0.5
     # Binarize the output
     y_test = label_binarize(test, classes=classes)
     n_classes = y_test.shape[1]
