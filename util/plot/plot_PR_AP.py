@@ -42,7 +42,7 @@ def plot_PR(test, output_prob, classes):
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title('Some extension of Precision-Recall curve to multi-class')
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower left")
     plt.show()
 
 
@@ -65,5 +65,5 @@ def plot_PR_Signal(test, output_prob):
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title('Precision-Recall curve')
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower left")
     plt.show()
