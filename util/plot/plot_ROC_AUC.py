@@ -1,15 +1,18 @@
 from matplotlib import pyplot as plt
 from sklearn.metrics import roc_curve, auc
 from sklearn.preprocessing import label_binarize
+from scipy.optimize import brentq
+from scipy.interpolate import interp1d
 
 
 # 画ROC_AUC曲线
-def plot_AUC(test, output_prob, classes):
+def ROC_AUC(test, output_prob, classes, show_error=False):
     """
     ROC AUC
     :param test:    测试集
     :param output_prob:     模型输出的概率
     :param classes:     类别
+    :param show_error:  是否显示EER
     :return:
     """
     lw = 2
@@ -35,17 +38,19 @@ def plot_AUC(test, output_prob, classes):
     for i in range(n_classes):
         plt.plot(fpr[i], tpr[i], label='ROC curve of class {0} (area = {1:0.2f})'
                                        ''.format(classes[i], roc_auc[i]))
+    eer = brentq(lambda x: 1. - x - interp1d(fpr["micro"], tpr["micro"])(x), 0., 1.)
+    plt.plot([eer], [interp1d(fpr["micro"], tpr["micro"])(eer)], marker='o', markersize=5, color="red")
     plt.plot([0, 1], [0, 1], 'k--', lw=lw)
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.title('Some extension of Receiver operating characteristic to multi-class')
+    plt.title('Some extension of Receiver operating characteristic to multi-class \n (ERR=%0.4f)' % eer)
     plt.legend(loc="lower right")
     plt.show()
 
 
-def plot_ROC_Signal(test, output_prob):
+def ROC_AUC_Signal(test, output_prob):
     """
     ROC AUC for 二分类
     :param test:   测试集
@@ -59,10 +64,12 @@ def plot_ROC_Signal(test, output_prob):
     plt.plot(fpr, tpr, color='darkorange', lw=lw,
              label='ROC curve (area = %0.4f)' % roc_auc)
     plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+    eer = brentq(lambda x: 1. - x - interp1d(fpr, tpr)(x), 0., 1.)
+    plt.plot([eer], [interp1d(fpr, tpr)(eer)], marker='o', markersize=5, color="red")
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic')
+    plt.title('Receiver operating characteristic (ERR=%0.4f)' % eer)
     plt.legend(loc="lower right")
     plt.show()

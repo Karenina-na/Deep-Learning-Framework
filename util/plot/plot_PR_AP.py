@@ -37,16 +37,18 @@ def plot_PR(test, output_prob, classes):
         plt.plot(recall[i], precision[i],
                  label='PR curve of class {0} (area = {1:0.2f})'
                        ''.format(i, average_precision[i]))
+    bep = brentq(lambda x: x - interp1d(recall["micro"], precision["micro"])(x), 0., 1.)
+    plt.plot([bep], [interp1d(recall["micro"], precision["micro"])(bep)], marker='o', markersize=5, color="red")
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('Recall')
     plt.ylabel('Precision')
-    plt.title('Some extension of Precision-Recall curve to multi-class')
+    plt.title('Some extension of Precision-Recall curve to multi-class \n (BEP = %0.4f)' % bep)
     plt.legend(loc="lower left")
     plt.show()
 
 
-def plot_PR_Signal(test, output_prob):
+def plot_PR_Single(test, output_prob):
     """
     画PR曲线
     :param test:   测试集
@@ -60,10 +62,12 @@ def plot_PR_Signal(test, output_prob):
     lw = 2
     plt.plot(recall, precision, color='darkorange', lw=lw,
              label='PR curve (area = %0.4f)' % average_precision)
+    bep = brentq(lambda x: x - interp1d(recall, precision)(x), 0., 1.)
+    plt.plot([bep], [interp1d(recall, precision)(bep)], marker='o', markersize=5, color="red")
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('Recall')
     plt.ylabel('Precision')
-    plt.title('Precision-Recall curve')
+    plt.title('Precision-Recall curve (BEP = %0.4f)' % bep)
     plt.legend(loc="lower left")
     plt.show()
