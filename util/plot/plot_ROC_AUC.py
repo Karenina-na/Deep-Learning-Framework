@@ -1,12 +1,12 @@
 from matplotlib import pyplot as plt
+from scipy.interpolate import interp1d
+from scipy.optimize import brentq
 from sklearn.metrics import roc_curve, auc
 from sklearn.preprocessing import label_binarize
-from scipy.optimize import brentq
-from scipy.interpolate import interp1d
 
 
 # 画ROC_AUC曲线
-def ROC_AUC(test, output_prob, classes, show_error=False):
+def ROC_AUC(test, output_prob, classes):
     """
     ROC AUC
     :param test:    测试集
@@ -31,7 +31,7 @@ def ROC_AUC(test, output_prob, classes, show_error=False):
     fpr["micro"], tpr["micro"], _ = roc_curve(y_test.ravel(), y_score.ravel())
     roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
     # Plot of a ROC curve for a specific class
-    plt.figure(dpi=300)
+    plt.figure(dpi=500)
     plt.plot(fpr["micro"], tpr["micro"],
              label='micro-average ROC curve (area = {0:0.2f})'
                    ''.format(roc_auc["micro"]))
@@ -41,12 +41,23 @@ def ROC_AUC(test, output_prob, classes, show_error=False):
     eer = brentq(lambda x: 1. - x - interp1d(fpr["micro"], tpr["micro"])(x), 0., 1.)
     plt.plot([eer], [interp1d(fpr["micro"], tpr["micro"])(eer)], marker='o', markersize=5, color="red")
     plt.plot([0, 1], [0, 1], 'k--', lw=lw)
+    plt.rcParams['font.sans-serif'] = ['Times New Roman']
+    # ================================
+    # plt.title('Some extension of Receiver operating characteristic to multi-class \n (ERR=%0.4f)' % eer,
+    #           fontsize=18, fontweight='bold')
+    plt.legend(loc="lower right", prop={'weight': 'bold', "size": 9})
+    # -------------------------------
+    plt.xticks(fontweight='bold', fontsize=12)
     plt.xlim([0.0, 1.0])
+    plt.xlabel('False Positive Rate', fontsize=20, fontweight='bold')
+    plt.gca().yaxis.set_label_coords(-0.1, 0.5)  # 纵轴坐标名称位置
+
+    plt.yticks(fontweight='bold', fontsize=12)
     plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Some extension of Receiver operating characteristic to multi-class \n (ERR=%0.4f)' % eer)
-    plt.legend(loc="lower right")
+    plt.ylabel('True Positive Rate', fontsize=20, fontweight='bold')
+    plt.gca().xaxis.set_label_coords(0.5, -0.1)  # 横轴坐标名称位置
+    # ================================
+    plt.tight_layout()
     plt.show()
 
 
@@ -68,8 +79,21 @@ def ROC_AUC_Signal(test, output_prob):
     plt.plot([eer], [interp1d(fpr, tpr)(eer)], marker='o', markersize=5, color="red")
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic (ERR=%0.4f)' % eer)
-    plt.legend(loc="lower right")
+    plt.rcParams['font.sans-serif'] = ['Times New Roman']
+    # ================================
+    # plt.title('Receiver operating characteristic (ERR=%0.4f)' % eer, fontsize=18, fontweight='bold')
+    plt.title(('ERR=%0.4f' % eer), fontsize=18, fontweight='bold')
+    plt.legend(loc="lower right", prop={'weight': 'bold', "size": 14})
+    # -------------------------------
+    plt.xticks(fontweight='bold', fontsize=14)
+    plt.xlim([0.0, 1.0])
+    plt.xlabel('False Positive Rate', fontsize=20, fontweight='bold')
+    plt.gca().yaxis.set_label_coords(-0.1, 0.5)  # 纵轴坐标名称位置
+
+    plt.yticks(fontweight='bold', fontsize=14)
+    plt.ylim([0.0, 1.05])
+    plt.ylabel('True Positive Rate', fontsize=20, fontweight='bold')
+    plt.gca().xaxis.set_label_coords(0.5, -0.1)  # 横轴坐标名称位置
+    # ================================
+    plt.tight_layout()
     plt.show()
