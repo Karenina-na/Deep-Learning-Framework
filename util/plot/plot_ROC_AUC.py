@@ -31,7 +31,7 @@ def ROC_AUC(test, output_prob, classes):
     fpr["micro"], tpr["micro"], _ = roc_curve(y_test.ravel(), y_score.ravel())
     roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
     # Plot of a ROC curve for a specific class
-    plt.figure(dpi=500)
+    plt.figure(dpi=300)
     plt.plot(fpr["micro"], tpr["micro"],
              label='micro-average ROC curve (area = {0:0.2f})'
                    ''.format(roc_auc["micro"]))
