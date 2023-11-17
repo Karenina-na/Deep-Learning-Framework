@@ -33,7 +33,7 @@
 我们的代码库支持直接下载和使用，但我们推荐使用 `git clone` 命令将整个代码库克隆到本地，以便您更好地管理和更新代码。具体使用方法如下：
 
 ```bash
-$ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
+$ git clone https://github.com/Karenina-na/Deep-Learning-Framework.git
 ```
 
 在克隆代码库之后，您可以通过 `cd` 命令进入到具体模型的文件夹中，然后运行对应的训练或测试脚本即可。我们在每个模型文件夹中都提供了相应的说明文档，以帮助您更好地使用该模型。

@@ -40,7 +40,7 @@ Our code repository supports direct downloading and usage, but we recommend usin
 3.Run the following command:
 
 ```bash
-$ git clone git@github.com:Karenina-na/Deep-Learning-Framework.git
+$ git clone https://github.com/Karenina-na/Deep-Learning-Framework.git
 ```
 
 4.Wait for the cloning process to complete. Once finished, you will have a local copy of the code repository on your machine.
