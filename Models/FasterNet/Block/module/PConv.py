@@ -23,8 +23,9 @@ class PConv(nn.Module):
             raise NotImplementedError("forward method: {} is not implemented.".format(forward))
 
     def forward_slicing(self, x: Tensor) -> Tensor:
-        x[:, :self.dim_conv, :, :] = self.conv(x[:, :self.dim_conv, :, :])
-
+        p_conv = self.conv(x[:, :self.dim_conv, :, :])
+        oth_conv = self.identity(x[:, self.dim_conv:, :, :])
+        x = torch.cat((p_conv, oth_conv), dim=1)
         return x
 
     def forward_split_cat(self, x: Tensor) -> Tensor:
