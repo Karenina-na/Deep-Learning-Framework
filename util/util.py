@@ -37,6 +37,7 @@ def oneHot(label, class_num):
     [batch,]
     """
     assert len(label.shape) == 1
+    label = label.astype(np.int32)
     batch = label.shape[0]
     label = label.reshape(batch)
     label = np.eye(class_num)[label]
